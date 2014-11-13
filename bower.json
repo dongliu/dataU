@@ -1,0 +1,29 @@
+{
+  "name": "dataU",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dongliu/dataU",
+  "authors": [
+    "Dong Liu <edongliu@gmail.com>"
+  ],
+  "description": "a facility status display",
+  "main": "./app.js",
+  "keywords": [
+    "express",
+    "bootstrap",
+    "full",
+    "screen",
+    "display"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}
