@@ -3,10 +3,18 @@ extends layout
 block content
   .vcenter
     .panel.panel-msu(style='width: 100%')
-      .panel-heading date and time here
+      .panel-heading
+        h2
+          span#day loading date
+          span#time.pull-right loading time
       //- .panel-body
       ul.list-group
         li.list-group-item CCF
         li.list-group-item ReA
         li.list-group-item Operators
         li.list-group-item Status
+
+block js
+  script(type='text/javascript', src='/dependencies/jquery/dist/jquery.js')
+  script(type='text/javascript', src='/dependencies/moment/moment.js')
+  script(type='text/javascript', src='/javascripts/datau.js')
