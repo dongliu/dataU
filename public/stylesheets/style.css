@@ -8,3 +8,23 @@ body {
   display: flex;
   align-items: center;
 }
+
+/*msu style*/
+.panel-msu {
+  border-color: #18453B;
+}
+.panel-msu > .panel-heading {
+  color: #fff;
+  background-color: #18453B;
+  border-color: #18453B;
+}
+.panel-msu > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #18453B;
+}
+.panel-msu > .panel-heading .badge {
+  color: #18453B;
+  background-color: #fff;
+}
+.panel-msu > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #18453B;
+}
