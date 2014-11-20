@@ -28,3 +28,19 @@ body {
 .panel-msu > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #18453B;
 }
+
+.time-axis {
+  display: block;
+  float: left;
+  width: 100%;
+  /*margin: 0px 0 10px 0;*/
+}
+
+.time-spot {
+  display: block;
+  float: left;
+  width: 20%;
+  /*border: 1px solid #aaa;*/
+  /*background-color:#f0f0f0;*/
+}
+

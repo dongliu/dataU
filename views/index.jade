@@ -8,7 +8,63 @@ block content
         span.lead#time.pull-right loading time
       //- .panel-body
       ul.list-group
-        li.list-group-item CCF
+        li.list-group-item
+          .row
+            .col-lg-2 CCF Current Experiment
+            .col-lg-2.col-lg-offset-8 Experimenter in Charge
+          .row
+            .col-lg-2.lead
+              strong#ccf-exp 09085 - Fallen, P.
+            .col-lg-8.lead
+              strong#ccf-exp-long Proton Spectroscopic Factors in Neutron-rich Sulphur Isotopes
+            .col-lg-2.lead
+              strong#ccf-exper Andreas Wiens
+          .row
+            .col-lg-2 ARTEMIS K500
+            .col-lg-2 K1200
+            .col-lg-2 RF Frequency
+            .col-lg-1 A1900
+            .col-lg-1 Vault
+            .col-lg-4 Status
+          .row
+            .col-lg-2.lead
+              strong#k500
+                sup 44
+                | S
+                sup 8+
+                != ' '
+                | 1.2 MeV/u
+            .col-lg-2.lead
+              strong#k1200
+                sup 48
+                | Ca
+                sup 20+
+                != ' '
+                | 140 MeV/u
+            .col-lg-2.lead
+              strong#rf 23.11780 MHz
+            .col-lg-1.lead
+              strong#a1900
+                sup 44
+                | S
+            .col-lg-1.lead
+              strong#vault S3
+            .col-lg-4.lead
+              strong#status Experiment Running
+          .row
+            .progress
+              .progress-bar.progress-bar-success(style='width: 35%')
+              .progress-bar.progress-bar-danger(style='width: 10%')
+              .progress-bar.progress-bar-success(style='width: 55%')
+          .row
+            .time-axis
+              .time-spot now
+              .time-spot.text-center 6 hours ago
+              .time-spot.text-center 12 hours ago
+              .time-spot.text-center 18 hours ago
+              .time-spot.text-right 24 hours ago
+
+
         li.list-group-item ReA
         li.list-group-item Operators
         li.list-group-item Status
