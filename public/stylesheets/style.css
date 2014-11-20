@@ -39,8 +39,16 @@ body {
 .time-spot {
   display: block;
   float: left;
-  width: 20%;
-  /*border: 1px solid #aaa;*/
-  /*background-color:#f0f0f0;*/
+  width: 25%;
+}
+
+.time-spot-end {
+  display: block;
+  float: left;
+  width: 12.5%;
+}
+
+.no-extra-space {
+  margin-bottom: 0 !important;
 }
 
