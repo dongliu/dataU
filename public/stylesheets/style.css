@@ -60,3 +60,6 @@ body {
   font-weight: bold;
 }
 
+.text-large {
+  font-size: 150%;
+}
