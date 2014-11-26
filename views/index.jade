@@ -29,24 +29,32 @@ block content
           .row
             .col-lg-2.text-large
               strong#k500
-                sup 44
-                | S
-                sup 8+
+                sup#k500-mass 48
+                span#k500-element Ca
+                sup
+                  span#k500-charge 8+
                 != ' '
-                | 1.2 MeV/u
+                span#k500-energy 12.28
+                != ' '
+                | MeV/u
             .col-lg-2.text-large
               strong#k1200
-                sup 48
-                | Ca
-                sup 20+
+                sup#k1200-mass 48
+                span#k1200-element Ca
+                sup
+                  span#k1200-charge 20+
                 != ' '
-                | 140 MeV/u
+                span#k1200-energy 140
+                != ' '
+                | MeV/u
             .col-lg-2.text-large
-              strong#ccf-rf 23.11780 MHz
+              strong#ccf-rf 23.11780
+                != ' '
+                | MHz
             .col-lg-1.text-large
               strong#a1900
-                sup 44
-                | S
+                sup#k1900-mass 44
+                span#k1900-element S
             .col-lg-1.text-large
               strong#ccf-vault S3
             .col-lg-4.text-large
@@ -84,16 +92,21 @@ block content
             .col-lg-4.text-msu Status
           .row
             .col-lg-2.text-large
-              strong#ebit
-                sup 44
-                | S
-                sup 8+
+              strong#rea
+                sup#rea-mass 44
+                span#rea-element S
+                sup
+                  span#rea-charge 8+
                 != ' '
-                | 1.2 MeV/u
+                span#rea-energy 1.2
+                != ' '
+                | MeV/u
             .col-lg-2.text-large
 
             .col-lg-2.text-large
-              strong#rea-rf 80.5 MHz
+              strong#rea-rf 80.5
+                != ' '
+                | MHz
             .col-lg-1.text-large
             .col-lg-1.text-large
               strong#rea-vault ReA
@@ -111,10 +124,52 @@ block content
               .time-spot.text-center 12 hours ago
               .time-spot.text-center 18 hours ago
               .time-spot-end.text-right 24 hours ago
-        li.list-group-item Operators
+        //- Operators
+        li.list-group-item
+          .row
+            .col-lg-2
+              .col-lg-6
+                //- .thumbnail
+                img(data-src='holder.js/100x150/text:Operators in charge')
+              .col-lg-4
+                .row
+                  span.text-msu Operators in charge
+                .row.text-large
+                  strong First Last
+            .col-lg-2
+              .col-lg-6
+                .thumbnail
+                  img(data-src='holder.js/100x150/text:Operators on shift')
+              .col-lg-4
+                .row
+                  span.text-msu Operators on shift
+                .row.text-large
+                  strong First Last
+            .col-lg-2
+              .col-lg-6
+                .thumbnail
+                  img(data-src='holder.js/100x150/text:Beam Physicist on call')
+              .col-lg-4
+                .row
+                  span.text-msu Beam Physicist on call
+                .row.text-large
+                  strong First Last
+            .col-lg-2
+              .col-lg-6
+                .thumbnail
+                  img(data-src='holder.js/100x150/text:Beam Coordinator')
+              .col-lg-4
+                .row
+                  span.text-msu Beam Coordinator
+                .row.text-large
+                  strong First Last
+
+
         li.list-group-item Status
 
 block js
   script(type='text/javascript', src='/dependencies/jquery/dist/jquery.js')
+  // script(type='text/javascript', src='/dependencies/bootstrap/dist/js/bootstrap.js')
+  script(type='text/javascript', src='/dependencies/holderjs/holder.js')
   script(type='text/javascript', src='/dependencies/moment/moment.js')
   script(type='text/javascript', src='/javascripts/datau.js')
