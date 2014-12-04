@@ -63,3 +63,8 @@ body {
 .text-large {
   font-size: 150%;
 }
+
+td {
+  vertical-align: top;
+  text-align: left;
+}

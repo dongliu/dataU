@@ -116,7 +116,7 @@ block content
             .progress.no-extra-space
               .progress-bar.progress-bar-success(style='width: 35%')
               .progress-bar.progress-bar-danger(style='width: 10%')
-              .progress-bar.progress-bar-success(style='width: 55%')
+              //- .progress-bar.progress-bar-success(style='width: 55%')
           .row
             .time-axis
               .time-spot-end now
@@ -127,45 +127,130 @@ block content
         //- Operators
         li.list-group-item
           .row
-            .col-lg-2
-              .col-lg-6
-                //- .thumbnail
-                img(data-src='holder.js/100x150/text:Operators in charge')
-              .col-lg-4
-                .row
-                  span.text-msu Operators in charge
-                .row.text-large
-                  strong First Last
-            .col-lg-2
-              .col-lg-6
-                .thumbnail
+            //- .col-lg-3
+            //-   .col-lg-6#charge
+            //-     .col-lg-6
+            //-       img(data-src='holder.js/100x150/text:Operators in charge')
+            //-     .col-lg-4
+            //-       .row
+            //-         span.text-msu Operators in charge
+            //-       .row.text-large
+            //-         strong.name First Last
+            //-   .col-lg-6#shift
+            //-     .col-lg-6
+            //-       img(data-src='holder.js/100x150/text:Operators on shift')
+            //-     .col-lg-4
+            //-       .row
+            //-         span.text-msu Operators on shift
+            //-       .row.text-large
+            //-         strong.name First Last
+            //- .col-lg-3
+            //-   .col-lg-6#oncall
+            //-     .col-lg-8
+            //-         img(data-src='holder.js/100x150/text:Beam Physicist on call')
+            //-     .col-lg-4
+            //-       .row
+            //-         span.text-msu Beam Physicist on call
+            //-       .row.text-large
+            //-         strong.name First Last
+            //-   .col-lg-6#co
+            //-     .col-lg-8
+            //-         img(data-src='holder.js/100x150/text:Beam Coordinator')
+            //-     .col-lg-4
+            //-       .row
+            //-         span.text-msu Beam Coordinator
+            //-       .row.text-large
+            //-         strong.name First Last
+            table
+              tr
+                td
+                  img(data-src='holder.js/100x150/text:Operators in charge')
+                td(width='100px')
+                  table
+                    tr(height='70px')
+                      td
+                        .text-msu Operators in charge
+                    tr(height='80px')
+                      td
+                        .text-large
+                          strong.name First Last
+                td
                   img(data-src='holder.js/100x150/text:Operators on shift')
-              .col-lg-4
-                .row
-                  span.text-msu Operators on shift
-                .row.text-large
-                  strong First Last
-            .col-lg-2
-              .col-lg-6
-                .thumbnail
+                td(width='100px')
+                  table
+                    tr(height='70px')
+                      td
+                        .text-msu Operators on shift
+                    tr(height='80px')
+                      td
+                        .text-large
+                          strong.name First Last
+                td
                   img(data-src='holder.js/100x150/text:Beam Physicist on call')
-              .col-lg-4
-                .row
-                  span.text-msu Beam Physicist on call
-                .row.text-large
-                  strong First Last
-            .col-lg-2
-              .col-lg-6
-                .thumbnail
+                td(width='100px')
+                  table
+                    tr(height='70px')
+                      td
+                        .text-msu Beam Physicist on call
+                    tr(height='80px')
+                      td
+                        .text-large
+                          strong.name First Last
+                td
                   img(data-src='holder.js/100x150/text:Beam Coordinator')
-              .col-lg-4
-                .row
-                  span.text-msu Beam Coordinator
-                .row.text-large
-                  strong First Last
+                td(width='100px')
+                  table
+                    tr(height='70px')
+                      td
+                        .text-msu Beam Coordinator
+                    tr(height='80px')
+                      td
+                        .text-large
+                          strong.name First Last
 
+        //- Status
+        li.list-group-item
+          .row
+            .col-lg-3
+              .text-large
+                strong CCF Attenuator: 1K
+            .col-lg-3.text-large
+              .row
+                  strong Vault Secure Status
+              .row
+                .col-lg-1.col-lg-offset-2
+                    i.fa.fa-circle.text-success
+                .col-lg-3
+                  strong K500
+                .col-lg-1
+                    i.fa.fa-circle.text-muted
+                .col-lg-3
+                  strong S1
+              .row
+                .col-lg-1.col-lg-offset-2
+                    i.fa.fa-circle.text-success
+                .col-lg-3
+                  strong K1200
+                .col-lg-1
+                    i.fa.fa-circle.text-success
+                .col-lg-3
+                  strong S3
+              .row
+                .col-lg-1.col-lg-offset-2
+                    i.fa.fa-circle.text-success
+                .col-lg-3
+                  strong K1900
+                .col-lg-1
+                    i.fa.fa-circle.text-muted
+                .col-lg-3
+                  strong N3
+              .row
+                .col-lg-1.col-lg-offset-6
+                    i.fa.fa-circle.text-muted
+                .col-lg-3
+                  strong N4
+            .col-lg-6
 
-        li.list-group-item Status
 
 block js
   script(type='text/javascript', src='/dependencies/jquery/dist/jquery.js')
