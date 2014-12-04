@@ -53,8 +53,8 @@ block content
                 | MHz
             .col-lg-1.text-large
               strong#a1900
-                sup#k1900-mass 44
-                span#k1900-element S
+                sup#a1900-mass 44
+                span#a1900-element S
             .col-lg-1.text-large
               strong#ccf-vault S3
             .col-lg-4.text-large
@@ -62,8 +62,10 @@ block content
           .row
             .progress.no-extra-space
               .progress-bar.progress-bar-success(style='width: 35%')
+              .progress-bar.progress-bar-warning(style='width: 10%')
               .progress-bar.progress-bar-danger(style='width: 10%')
-              .progress-bar.progress-bar-success(style='width: 55%')
+              .progress-bar.progress-bar-idle(style='width: 10%')
+              .progress-bar.progress-bar-success(style='width: 35%')
           .row
             .time-axis
               .time-spot-end now
@@ -127,40 +129,6 @@ block content
         //- Operators
         li.list-group-item
           .row
-            //- .col-lg-3
-            //-   .col-lg-6#charge
-            //-     .col-lg-6
-            //-       img(data-src='holder.js/100x150/text:Operators in charge')
-            //-     .col-lg-4
-            //-       .row
-            //-         span.text-msu Operators in charge
-            //-       .row.text-large
-            //-         strong.name First Last
-            //-   .col-lg-6#shift
-            //-     .col-lg-6
-            //-       img(data-src='holder.js/100x150/text:Operators on shift')
-            //-     .col-lg-4
-            //-       .row
-            //-         span.text-msu Operators on shift
-            //-       .row.text-large
-            //-         strong.name First Last
-            //- .col-lg-3
-            //-   .col-lg-6#oncall
-            //-     .col-lg-8
-            //-         img(data-src='holder.js/100x150/text:Beam Physicist on call')
-            //-     .col-lg-4
-            //-       .row
-            //-         span.text-msu Beam Physicist on call
-            //-       .row.text-large
-            //-         strong.name First Last
-            //-   .col-lg-6#co
-            //-     .col-lg-8
-            //-         img(data-src='holder.js/100x150/text:Beam Coordinator')
-            //-     .col-lg-4
-            //-       .row
-            //-         span.text-msu Beam Coordinator
-            //-       .row.text-large
-            //-         strong.name First Last
             table
               tr
                 td
@@ -211,41 +179,42 @@ block content
         //- Status
         li.list-group-item
           .row
-            .col-lg-3
-              .text-large
-                strong CCF Attenuator: 1K
-            .col-lg-3.text-large
-              .row
+            .col-lg-2.text-large.text-center
+              strong CCF Attenuator: 1K
+            .col-lg-2.text-large
+              .row.text-center
                   strong Vault Secure Status
               .row
-                .col-lg-1.col-lg-offset-2
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-success
                 .col-lg-3
                   strong K500
-                .col-lg-1
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-muted
                 .col-lg-3
                   strong S1
               .row
-                .col-lg-1.col-lg-offset-2
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-success
                 .col-lg-3
                   strong K1200
-                .col-lg-1
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-success
                 .col-lg-3
                   strong S3
               .row
-                .col-lg-1.col-lg-offset-2
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-success
                 .col-lg-3
-                  strong K1900
-                .col-lg-1
+                  strong A1900
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-muted
                 .col-lg-3
                   strong N3
               .row
-                .col-lg-1.col-lg-offset-6
+                .col-lg-1.col-lg-offset-1
+                .col-lg-3
+                .col-lg-1.col-lg-offset-1
                     i.fa.fa-circle.text-muted
                 .col-lg-3
                   strong N4

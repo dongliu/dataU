@@ -68,3 +68,7 @@ td {
   vertical-align: top;
   text-align: left;
 }
+
+.progress-bar-idle {
+  background-color: #f5f5f5;
+}
