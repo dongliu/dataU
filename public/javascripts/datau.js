@@ -13,7 +13,11 @@ function timedUpdate() {
 
 $(function () {
   timedUpdate();
-  var plot = new Dygraph('beam-plot', 'beam.csv', {
-    labels: ['Date', 'Primary Beam Intensity (a.u.)']
+  var plot = new Dygraph('beam-plot', 'raw.csv', {
+    labels: ['Date', 'Primary Beam Intensity (a.u.)'],
+    // ylabel: 'Temperature (F)',
+    legend: 'always',
+    height: 150,
+    width: 800
   });
 });
