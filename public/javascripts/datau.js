@@ -13,4 +13,7 @@ function timedUpdate() {
 
 $(function () {
   timedUpdate();
+  var plot = new Dygraph('beam-plot', 'beam.csv', {
+    labels: ['Date', 'Primary Beam Intensity (a.u.)']
+  });
 });
