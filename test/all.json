@@ -1,0 +1,311 @@
+[{
+  "facility": {
+    "description": "Coupled Cyclotron Facility",
+    "facilityId": 1,
+    "facilityName": "CCF",
+    "version": 0
+  },
+  "experiment": {
+    "a1900Contact": "Tom Ginter",
+    "experimentCompleted": "no",
+    "hoursApproved": 258,
+    "hoursRequested": 258,
+    "number": 9084,
+    "onTargetHours": 206,
+    "spokesperson": "Lee, J.",
+    "title": "Comparison of Spectroscopic Factors from (p,d) and Knockout"
+  },
+  "mode": {
+    "description": "Coupled",
+    "modeId": 1,
+    "name": "COU"
+  },
+  "source": {
+    "name": "ART",
+    "description": "Artemis: Room-temperature source."
+  },
+  "vault": {
+    "active": true,
+    "description": "S2",
+    "name": "S2",
+    "vaultId": 8,
+    "version": 0
+  },
+  "beamList": {
+    "beam": [{
+      "system": "K500",
+      "elementName": "Tin",
+      "symbol": "Sn",
+      "massNumber": 124,
+      "elementCharge": 0,
+      "energy": 10.83
+    }, {
+      "system": "K1200",
+      "elementName": "Tin",
+      "symbol": "Sn",
+      "massNumber": 124,
+      "elementCharge": 0,
+      "energy": 120.0
+    }, {
+      "system": "A1900",
+      "elementName": "Zironium",
+      "symbol": "Zr",
+      "massNumber": 102,
+      "elementCharge": 0
+    }]
+  },
+  "statusList": {
+    "status": [{
+      "timeStamp": "2014-12-04T08:04:00",
+      "name": "SOF",
+      "description": "Scheduled off"
+    }]
+  },
+  "availabilityList": {
+    "availability": [{
+      "days": 1,
+      "percentage": 92.52944912947056
+    }, {
+      "days": 7,
+      "percentage": 94.21908254903954
+    }, {
+      "days": 30,
+      "percentage": 91.21922462767793
+    }, {
+      "days": 180,
+      "percentage": 96.74310038576513
+    }]
+  },
+  "shift": {
+    "startTime": "2014-12-04T23:47:00",
+    "operatorInCharge": {
+      "currentEmployee": true,
+      "department": "Operations",
+      "email": "battin@nscl.msu.edu",
+      "firstName": "Laurence",
+      "lastName": "Battin",
+      "loginId": "battin",
+      "nickName": "Battin",
+      "operationsStaff": false,
+      "smsCapable": false,
+      "smsNumber": "",
+      "smsProvider": 0,
+      "userId": 1507,
+      "version": 0
+    },
+    "experimenterInCharge": "",
+    "staffList": {
+      "shiftStaff": [{
+        "employee": {
+          "currentEmployee": true,
+          "department": "Operations",
+          "email": "cole@nscl.msu.edu",
+          "firstName": "Dallas",
+          "lastName": "Cole",
+          "loginId": "cole",
+          "nickName": "Cole",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "",
+          "smsProvider": 1,
+          "userId": 23,
+          "version": 0
+        },
+        "role": {
+          "description": "Source Physicist",
+          "name": "Source Physicist",
+          "opRoleId": 2,
+          "version": 0
+        }
+      }, {
+        "employee": {
+          "currentEmployee": true,
+          "department": "Operations",
+          "email": "galbraith@nscl.msu.edu",
+          "firstName": "Ken",
+          "lastName": "Galbraith",
+          "loginId": "galbrait",
+          "nickName": "Galbraith",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "",
+          "smsProvider": 0,
+          "userId": 1645,
+          "version": 0
+        },
+        "role": {
+          "description": "Operator",
+          "name": "Operator",
+          "opRoleId": 1,
+          "version": 0
+        }
+      }, {
+        "employee": {
+          "currentEmployee": true,
+          "department": "Operations",
+          "email": "kwan@nscl.msu.edu",
+          "firstName": "Elaine",
+          "lastName": "Kwan",
+          "loginId": "kwan",
+          "nickName": "Kwan",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "",
+          "smsProvider": 1,
+          "userId": 2994,
+          "version": 0
+        },
+        "role": {
+          "description": "Beam Physicist",
+          "name": "Beam Physicist",
+          "opRoleId": 3,
+          "version": 0
+        }
+      }, {
+        "employee": {
+          "currentEmployee": true,
+          "department": "Cryogenics",
+          "email": "thrush@frib.msu.edu",
+          "firstName": "Michael",
+          "lastName": "Thrush",
+          "loginId": "thrush",
+          "nickName": "Trush",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "5866514371",
+          "smsProvider": 5,
+          "userId": 2782,
+          "version": 0
+        },
+        "role": {
+          "description": "Cryogenics Engineer",
+          "name": "Cryogenics Engineer",
+          "opRoleId": 5,
+          "version": 0
+        }
+      }, {
+        "employee": {
+          "currentEmployee": true,
+          "department": "Operations",
+          "email": "steiner@nscl.msu.edu",
+          "firstName": "Mathias",
+          "lastName": "Steiner",
+          "loginId": "steiner",
+          "nickName": "Steiner",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "",
+          "smsProvider": 1,
+          "userId": 860,
+          "version": 0
+        },
+        "role": {
+          "description": "Beam Coordinator",
+          "name": "Beam Coordinator",
+          "opRoleId": 6,
+          "version": 0
+        }
+      }, {
+        "employee": {
+          "currentEmployee": true,
+          "department": "Operations",
+          "email": "bonofiglio@nscl.msu.edu",
+          "firstName": "Jon",
+          "lastName": "Bonofiglio",
+          "loginId": "bonofigl",
+          "nickName": "Bono",
+          "operationsStaff": false,
+          "smsCapable": false,
+          "smsNumber": "",
+          "smsProvider": 0,
+          "userId": 1084,
+          "version": 0
+        },
+        "role": {
+          "description": "Maintenance Engineer",
+          "name": "Maintenance Engineer",
+          "opRoleId": 7,
+          "version": 0
+        }
+      }]
+    }
+  }
+}, {
+  "facility": {
+    "description": "Re-Accelerator",
+    "facilityId": 2,
+    "facilityName": "ReA",
+    "version": 0
+  },
+  "experiment": {
+    "a1900Contact": "Tom Ginter",
+    "experimentCompleted": "no",
+    "hoursApproved": 258,
+    "hoursRequested": 258,
+    "number": 9084,
+    "onTargetHours": 206,
+    "spokesperson": "Lee, J.",
+    "title": "Comparison of Spectroscopic Factors from (p,d) and Knockout"
+  },
+  "mode": {
+    "description": "Coupled",
+    "modeId": 1,
+    "name": "COU"
+  },
+  "source": {
+    "name": "ART",
+    "description": "Artemis: Room-temperature source."
+  },
+  "vault": {
+    "active": true,
+    "description": "S2",
+    "name": "S2",
+    "vaultId": 8,
+    "version": 0
+  },
+  "beamList": {
+    "beam": [{
+      "system": "K500",
+      "elementName": "Tin",
+      "symbol": "Sn",
+      "massNumber": 124,
+      "elementCharge": 0,
+      "energy": 10.83
+    }, {
+      "system": "K1200",
+      "elementName": "Tin",
+      "symbol": "Sn",
+      "massNumber": 124,
+      "elementCharge": 0,
+      "energy": 120.0
+    }, {
+      "system": "A1900",
+      "elementName": "Zironium",
+      "symbol": "Zr",
+      "massNumber": 102,
+      "elementCharge": 0
+    }]
+  },
+  "statusList": {
+    "status": [{
+      "timeStamp": "2014-12-04T08:04:00",
+      "name": "SOF",
+      "description": "Scheduled off"
+    }]
+  },
+  "availabilityList": {
+    "availability": [{
+      "days": 1,
+      "percentage": 90.22489768845975
+    }, {
+      "days": 7,
+      "percentage": 95.30659147539318
+    }, {
+      "days": 30,
+      "percentage": 92.39002289084274
+    }, {
+      "days": 180,
+      "percentage": 95.21623311954379
+    }]
+  }
+}]
