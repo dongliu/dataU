@@ -29,6 +29,7 @@ app.use('/dependencies', express.static(path.join(__dirname, 'bower_components')
 
 app.use('/', routes);
 app.use('/users', users);
+require('./routes/data')(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
