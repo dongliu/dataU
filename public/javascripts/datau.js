@@ -20,7 +20,7 @@ $(function () {
     url: '/pvs/Z013L-C/json',
     data: {
       to: now.toISOString(),
-      from: now.subtract(12, 'h').toISOString
+      from: now.subtract(12, 'h').toISOString()
     },
     dataType: 'json'
   }).done(function (json) {
