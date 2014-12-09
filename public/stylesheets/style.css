@@ -2,14 +2,18 @@ body {
   height: 100%;
 }
 .vcenter {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
+  min-height: 100%;
+  /* Fallback for browsers do NOT support vh unit */
+
+  min-height: 100vh;
+  /* These two lines are counted as one :-)       */
+
   width: 100%;
   display: flex;
   align-items: center;
 }
-
 /*msu style*/
+
 .panel-msu {
   border-color: #18453B;
 }
@@ -28,75 +32,67 @@ body {
 .panel-msu > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #18453B;
 }
-
 .time-axis {
   display: block;
   float: left;
   width: 100%;
   /*margin: 0px 0 10px 0;*/
 }
-
 .time-spot {
   display: block;
   float: left;
   width: 25%;
 }
-
 .time-spot-end {
   display: block;
   float: left;
   width: 12.5%;
 }
-
 .no-extra-space {
   margin-bottom: 0 !important;
 }
-
 .text-msu {
   color: #18453B;
 }
-
 .text-strong {
   font-weight: bold;
 }
-
 .text-large {
   font-size: 150%;
 }
-
 td {
   vertical-align: top;
   text-align: left;
 }
-
 .progress-bar-idle {
   background-color: #f5f5f5;
 }
-
 .progress-bar-sof {
   background-color: #333333;
 }
-
 .progress-bar-uof {
   background-color: #ff0000;
 }
-
 .progress-bar-pdt {
   background-color: #eeaa00;
 }
-
 .progress-bar-sdt {
   background-color: #ddcc00;
 }
-
 .progress-bar-idt {
   background-color: #eeaa00;
 }
-
 .progress-bar-exr {
   background-color: #33aa00;
 }
-
 .progress-bar-xdt {
   background-color: #66aa88;
+}
+.inline {
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 10px;
+}
+.strong {
+  font-weight: bold;
 }
