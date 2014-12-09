@@ -1,3 +1,7 @@
+var ad = require('../config/ad.json');
+
+var ldapClient = require('../lib/ldap-client');
+
 var request = require('request');
 var dataconfig = require('../config/data.json');
 
@@ -19,5 +23,31 @@ module.exports = function (app) {
       console.log(err);
       return res.send(503, 'cannot retrieve device list from ' + dataconfig.pvdataurl);
     }).pipe(res);
+  });
+
+  app.get('/users/:id/photo', function (req, res) {
+    var searchFilter = ad.searchFilter.replace('_id', req.params.id);
+    var opts = {
+      filter: searchFilter,
+      attributes: ad.rawAttributes,
+      scope: 'sub'
+    };
+    ldapClient.search(ad.searchBase, opts, true, function (err, result) {
+      if (err) {
+        return res.json(500, err);
+      }
+      if (result.length === 0) {
+        return res.json(500, {
+          error: req.params.id + ' is not found!'
+        });
+      }
+      if (result.length > 1) {
+        return res.json(500, {
+          error: req.params.id + ' is not unique!'
+        });
+      }
+      res.set('Content-Type', 'image/jpeg');
+      return res.send(result[0].thumbnailPhoto);
+    });
   });
 };

@@ -33,3 +33,6 @@ bower_components
 # sublime stuff
 *.sublime-project
 *.sublime-workspace
+
+# special config
+config/ad.json
