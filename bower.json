@@ -28,6 +28,7 @@
     "moment": "~2.8.3",
     "holderjs": "~2.4.1",
     "font-awesome": "~4.2.0",
-    "dygraphs": "~1.1.0"
+    "dygraphs": "~1.1.0",
+    "jsonpath": "*"
   }
 }
