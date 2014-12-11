@@ -1,4 +1,30 @@
 /*global moment: false, Dygraph: false*/
+function padding(s) {
+  return '0' + s;
+}
+
+// the template to etl the json
+var template = {
+  ccf_experiment_number : {
+    e : '$[0].experiment.number',
+    t : padding,
+    l : '#ccf_experiment_number'
+  },
+    ccf_experiment_spokesperson : {
+    e : '$[0].experiment.spokesperson',
+    l : '#ccf_experiment_spokesperson'
+  },
+    ccf_experiment_title : {
+    e : '$[0].experiment.title',
+    l : '#ccf_experiment_title'
+  },
+    ccf_experiment_a1900Contact : {
+    e : '$[0].experiment.a1900Contact',
+    l : '#ccf_experiment_a1900Contact'
+  }
+
+};
+
 function updateClock() {
   var now = moment();
   $('#day').text(now.format('dddd, Do MMMM YYYY'));
@@ -8,7 +34,7 @@ function updateClock() {
 function timedUpdate() {
   updateClock();
   // update other information
-  setTimeout(timedUpdate, 1000);
+  setTimeout(timedUpdate, 10 * 1000);
 }
 
 $(function () {

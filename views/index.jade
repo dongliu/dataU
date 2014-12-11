@@ -8,17 +8,22 @@ block content
         span#time.text-large.pull-right loading time
       ul.list-group
         //- ccf
-        li.list-group-item
+        li.list-group-item#ccf
           .row
             .col-lg-2.text-msu CCF Current Experiment
             .col-lg-2.col-lg-offset-8.text-msu Experimenter in Charge
           .row
             .col-lg-2.text-large
-              strong#ccf-exp 09085 - Fallen, P.
+              #ccf-exp.strong
+                span#ccf_experiment_number 09085
+                != ' - '
+                span#ccf_experiment_spokesperson Fallen, P.
             .col-lg-8.text-large
-              strong#ccf-exp-long Proton Spectroscopic Factors in Neutron-rich Sulphur Isotopes
+              #ccf-exp-long.strong
+                span#ccf_experiment_title Proton Spectroscopic Factors in Neutron-rich Sulphur Isotopes
             .col-lg-2.text-large
-              strong#ccf-exper Andreas Wiens
+              #ccf-exper.strong
+                span#ccf_experiment_a1900Contact Andreas Wiens
           .row
             .col-lg-2.text-msu ARTEMIS K500
             .col-lg-2.text-msu K1200
@@ -138,8 +143,8 @@ block content
               .text-msu Operators
               .text-msu in charge
               .text-large
-                .strong First
-                .strong Last
+                .strong.first First
+                .strong.last Last
             .inline
               img(alt='Operators on shift', height='150px', src='/images/paquettj.jpg', data-src='holder.js/100x150/text:Operators on shift')
             .inline
