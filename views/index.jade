@@ -15,15 +15,15 @@ block content
           .row
             .col-lg-2.text-large
               #ccf-exp.strong
-                span#ccf_experiment_number 09085
+                span#ccf_experiment_number
                 != ' - '
-                span#ccf_experiment_spokesperson Fallen, P.
+                span#ccf_experiment_spokesperson
             .col-lg-8.text-large
               #ccf-exp-long.strong
-                span#ccf_experiment_title Proton Spectroscopic Factors in Neutron-rich Sulphur Isotopes
+                span#ccf_experiment_title
             .col-lg-2.text-large
               #ccf-exper.strong
-                span#ccf_experiment_a1900Contact Andreas Wiens
+                span#ccf_experiment_a1900Contact
           .row
             .col-lg-2.text-msu ARTEMIS K500
             .col-lg-2.text-msu K1200
@@ -33,37 +33,40 @@ block content
             .col-lg-4.text-msu Status
           .row
             .col-lg-2.text-large
-              strong#k500
-                sup#k500-mass 48
-                span#k500-element Ca
+              .strong
+                sup#k500_mass
+                span#k500_element
                 sup
-                  span#k500-charge 8+
+                  span#k500_charge
                 != ' '
-                span#k500-energy 12.28
+                span#k500_energy
                 != ' '
                 | MeV/u
             .col-lg-2.text-large
-              strong#k1200
-                sup#k1200-mass 48
-                span#k1200-element Ca
+              .strong
+                sup#k1200_mass
+                span#k1200_element
                 sup
-                  span#k1200-charge 20+
+                  span#k1200_charge
                 != ' '
-                span#k1200-energy 140
+                span#k1200_energy
                 != ' '
                 | MeV/u
             .col-lg-2.text-large
-              strong#ccf-rf 23.11780
+              .strong
+                span#ccf-rf 
                 != ' '
                 | MHz
             .col-lg-1.text-large
-              strong#a1900
-                sup#a1900-mass 44
-                span#a1900-element S
+              .strong
+                sup#a1900_mass
+                span#a1900_element
+                sup
+                  span#a1900_charge
             .col-lg-1.text-large
-              strong#ccf-vault S3
+              span.strong#ccf_vault
             .col-lg-4.text-large
-              strong#status Experiment Running
+              span.strong#ccf_status
           .row
             .progress.no-extra-space
               .progress-bar.progress-bar-exr(style='width: 20%') EXR

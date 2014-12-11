@@ -3,6 +3,13 @@ function padding(s) {
   return '0' + s;
 }
 
+function charge(n) {
+  if (n > 0) {
+    return n + '+';
+  }
+  return '';
+}
+
 // the template to etl the json
 var template = {
   ccf_experiment_number: {
@@ -21,7 +28,63 @@ var template = {
   ccf_experiment_a1900Contact: {
     e: '$[0].experiment.a1900Contact',
     l: '#ccf_experiment_a1900Contact'
+  },
+  k500_mass: {
+    e: '$[0].beamList.beam[?(@.system==="K500")].massNumber',
+    l: '#k500_mass'
+  },
+  k500_element: {
+    e: '$[0].beamList.beam[?(@.system==="K500")].symbol',
+    l: '#k500_element'
+  },
+  k500_charge: {
+    e: '$[0].beamList.beam[?(@.system==="K500")].elementCharge',
+    t: charge,
+    l: '#k500_charge'
+  },
+  k500_energy: {
+    e: '$[0].beamList.beam[?(@.system==="K500")].energy',
+    l: '#k500_energy'
+  },
+  k1200_mass: {
+    e: '$[0].beamList.beam[?(@.system==="K1200")].massNumber',
+    l: '#k1200_mass'
+  },
+  k1200_element: {
+    e: '$[0].beamList.beam[?(@.system==="K1200")].symbol',
+    l: '#k1200_element'
+  },
+  k1200_charge: {
+    e: '$[0].beamList.beam[?(@.system==="K1200")].elementCharge',
+    t: charge,
+    l: '#k1200_charge'
+  },
+  k1200_energy: {
+    e: '$[0].beamList.beam[?(@.system==="K1200")].energy',
+    l: '#k1200_energy'
+  },
+  a1900_mass: {
+    e: '$[0].beamList.beam[?(@.system==="A1900")].massNumber',
+    l: '#a1900_mass'
+  },
+  a1900_element: {
+    e: '$[0].beamList.beam[?(@.system==="A1900")].symbol',
+    l: '#a1900_element'
+  },
+  a1900_charge: {
+    e: '$[0].beamList.beam[?(@.system==="A1900")].elementCharge',
+    t: charge,
+    l: '#a1900_charge'
+  },
+  ccf_vault: {
+    e: '$[0].vault.name',
+    l: '#ccf_vault'
+  },
+  ccf_status: {
+    e: '$[0].statusList.status[0].description',
+    l: '#ccf_status'
   }
+
 };
 
 function jsonETL(json, template) {
