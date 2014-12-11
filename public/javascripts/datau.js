@@ -1,4 +1,6 @@
 /*global moment: false, Dygraph: false, jsonPath*/
+var now;
+
 function padding(s) {
   return '0' + s;
 }
@@ -84,7 +86,6 @@ var template = {
     e: '$[0].statusList.status[0].description',
     l: '#ccf_status'
   }
-
 };
 
 function jsonETL(json, template) {
@@ -95,26 +96,40 @@ function jsonETL(json, template) {
       if (value.length === 1) {
         if (typeof template[prop].t === 'function') {
           $(template[prop].l).text(template[prop].t(value[0]));
-          // output[prop] = template[prop].t(value[0]);
         } else {
           $(template[prop].l).text(value[0]);
-          // output[prop] = value[0];
         }
       } else {
         if (template[prop].hasOwnProperty('defaultValue')) {
           $(template[prop].l).text(template[prop].defaultValue);
-          // output[prop] = template[prop].defaultValue;
         } else {
           $(template[prop].l).text('');
-          // output[prop] = null;
         }
       }
     }
   }
 }
 
+function progressPercentage(time) {
+  return Math.round((now.unix() - moment(time).unix()) / (24 * 36));
+}
+
+function progressBar(o) {
+  return '<div style="width: ' + progressPercentage(o.timeStamp) + '%" class="progress-bar progress-bar-' + o.name.toLowerCase() + '">' + o.name + '</div>';
+} 
+
+function progress(a) {
+  var i, out = '';
+  for (i = 0; i < a.length; i += 1) {
+    out += progressBar(a[i]);
+  }
+  return out;
+}
+
+
+
 function updateClock() {
-  var now = moment();
+  now = moment();
   $('#day').text(now.format('dddd, Do MMMM YYYY'));
   $('#time').text(now.format('HH:mm'));
 }
@@ -126,7 +141,7 @@ function timedUpdate() {
 }
 
 $(function () {
-  var now = moment();
+  now = moment();
   var plot;
   var plotdata = [];
   timedUpdate();
@@ -159,6 +174,7 @@ $(function () {
     dataType: 'json'
   }).done(function (json) {
     jsonETL(json, template);
+    $('#ccf_progress').html(progress(json[0].statusList.status));
   }).fail(function (jqXHR, status, error) {
     //do something;
   });
