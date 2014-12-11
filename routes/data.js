@@ -25,6 +25,21 @@ module.exports = function (app) {
     }).pipe(res);
   });
 
+  app.get('/facilities/summary', function (req, res) {
+    request({
+      url: dataconfig.hourlogreport,
+      strictSSL: false,
+      headers: {
+        Accept: 'application/json',
+        'DISCS-Authorization': 'xxxx:zzz'
+      },
+      timeout: 30 * 1000
+    }).on('error', function (err) {
+      console.log(err);
+      return res.send(503, 'cannot retrieve summary from ' + dataconfig.hourlogreport);
+    }).pipe(res);
+  });
+
   app.get('/users/:id/photo', function (req, res) {
     var searchFilter = ad.searchFilter.replace('_id', req.params.id);
     var opts = {
