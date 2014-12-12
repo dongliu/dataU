@@ -27,9 +27,9 @@ var template = {
     e: '$[0].experiment.title',
     l: '#ccf_experiment_title'
   },
-  ccf_experiment_a1900Contact: {
-    e: '$[0].experiment.a1900Contact',
-    l: '#ccf_experiment_a1900Contact'
+  ccf_experimenter_in_charge: {
+    e: '$[0].shift.experimenterInCharge',
+    l: '#ccf_experimenter_in_charge'
   },
   k500_mass: {
     e: '$[0].beamList.beam[?(@.system==="K500")].massNumber',
@@ -99,9 +99,9 @@ var template = {
     e: '$[1].experiment.title',
     l: '#rea_experiment_title'
   },
-  rea_experiment_a1900Contact: {
-    e: '$[1].experiment.a1900Contact',
-    l: '#rea_experiment_a1900Contact'
+  rea_experimenter_in_charge: {
+    e: '$[1].shift.experimenterInCharge',
+    l: '#rea_experimenter_in_charge'
   },
   // rea_mass: {
   //   e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
