@@ -196,7 +196,9 @@ function jsonETL(json, template) {
   for (prop in template) {
     if (template.hasOwnProperty(prop)) {
       value = jsonPath.eval(json, template[prop].e);
-      if (value.length === 1) {
+      // might need a better compare here
+      if (value[0] !== template[prop].currentValue) {
+        template[prop].currentValue = value[0];
         if (typeof template[prop].t === 'function') {
           if (template[prop].l) {
             $(template[prop].l).text(template[prop].t(value[0]));
@@ -206,14 +208,6 @@ function jsonETL(json, template) {
         } else {
           if (template[prop].l) {
             $(template[prop].l).text(value[0]);
-          }
-        }
-      } else {
-        if (template[prop].l) {
-          if (template[prop].hasOwnProperty('defaultValue')) {
-            $(template[prop].l).text(template[prop].defaultValue);
-          } else {
-            $(template[prop].l).text('');
           }
         }
       }
