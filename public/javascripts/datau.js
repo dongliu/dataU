@@ -1,5 +1,7 @@
 /*global moment: false, Dygraph: false, jsonPath*/
 var now;
+var plot;
+var plotdata = [];
 
 function padding(s) {
   return '0' + s;
@@ -186,8 +188,7 @@ var template = {
   co_id: {
     e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Coordinator")].employee.loginId',
     t: updateImage('#co_image')
-  },
-
+  }
 };
 
 function jsonETL(json, template) {
@@ -252,22 +253,24 @@ function progress24(a) {
 
 
 function updateClock() {
-  now = moment();
   $('#day').text(now.format('dddd, Do MMMM YYYY'));
   $('#time').text(now.format('HH:mm'));
 }
 
-function timedUpdate() {
-  updateClock();
-  // update other information
-  setTimeout(timedUpdate, 10 * 1000);
+function updateFromHourlog() {
+  $.ajax({
+    url: '/facilities/summary',
+    dataType: 'json'
+  }).done(function (json) {
+    jsonETL(json, template);
+    $('#ccf_progress').html(progressBar(progress24(json[0].statusList.status)));
+    $('#rea_progress').html(progressBar(progress24(json[1].statusList.status)));
+  }).fail(function (jqXHR, status, error) {
+    //do something;
+  });
 }
 
-$(function () {
-  now = moment();
-  var plot;
-  var plotdata = [];
-  timedUpdate();
+function initPlot() {
   $.ajax({
     url: '/pvs/Z013L-C/json',
     data: {
@@ -283,7 +286,7 @@ $(function () {
     plot = new Dygraph('beam-plot', plotdata, {
       labels: ['Date', 'Primary Beam Intensity (Amps)'],
       // ylabel: '',
-      xAxisLabelWidth: 100,
+      // xAxisLabelWidth: 100,
       legend: 'always',
       colors: ['#0033CC'],
       height: 150
@@ -291,16 +294,48 @@ $(function () {
   }).fail(function (jqXHR, status, error) {
     //do something;
   });
+}
 
-  $.ajax({
-    url: '/facilities/summary',
-    dataType: 'json'
-  }).done(function (json) {
-    jsonETL(json, template);
-    $('#ccf_progress').html(progressBar(progress24(json[0].statusList.status)));
-    $('#rea_progress').html(progressBar(progress24(json[1].statusList.status)));
-  }).fail(function (jqXHR, status, error) {
-    //do something;
-  });
+function updatePlot() {
+  if (plotdata.length === 0) {
+    initPlot(plot, plotdata);
+  } else {
+    $.ajax({
+      url: '/pvs/Z013L-C/json',
+      data: {
+        to: now.toISOString(),
+        from: moment(plotdata[plotdata.length - 1][0]).toISOString()
+      },
+      dataType: 'json'
+    }).done(function (json) {
+      var i, a = json[0].data;
+      for (i = 0; i < a.length; i += 1) {
+        plotdata.shift();
+        plotdata.push([new Date(a[i].secs * 1000), a[i].val]);
+      }
+      plot.updateOptions({
+        'file': plotdata
+      });
+    }).fail(function (jqXHR, status, error) {
+      //do something;
+    });
+  }
+}
 
+function timedUpdate() {
+  now = moment();
+  updateClock();
+  updateFromHourlog();
+  updatePlot();
+  // update other information
+}
+
+$(function () {
+  now = moment();
+  updateClock();
+  updateFromHourlog();
+  updatePlot(plot, plotdata);
+  setInterval(function () {
+    timedUpdate();
+  }, 30 * 1000);
 });
