@@ -102,6 +102,31 @@ var template = {
   rea_experiment_a1900Contact: {
     e: '$[1].experiment.a1900Contact',
     l: '#rea_experiment_a1900Contact'
+  },
+  // rea_mass: {
+  //   e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
+  //   l: '#rea_mass'
+  // },
+  // rea_element: {
+  //   e: '$[0].beamList.beam[?(@.system==="rea")].symbol',
+  //   l: '#rea_element'
+  // },
+  // rea_charge: {
+  //   e: '$[0].beamList.beam[?(@.system==="rea")].elementCharge',
+  //   t: charge,
+  //   l: '#rea_charge'
+  // },
+  // rea_energy: {
+  //   e: '$[0].beamList.beam[?(@.system==="rea")].energy',
+  //   l: '#rea_energy'
+  // },
+  rea_vault: {
+    e: '$[1].vault.name',
+    l: '#rea_vault'
+  },
+  rea_status: {
+    e: '$[1].statusList.status[0].description',
+    l: '#rea_status'
   }
 };
 
@@ -204,6 +229,7 @@ $(function () {
   }).done(function (json) {
     jsonETL(json, template);
     $('#ccf_progress').html(progressBar(progress24(json[0].statusList.status)));
+    $('#rea_progress').html(progressBar(progress24(json[1].statusList.status)));
   }).fail(function (jqXHR, status, error) {
     //do something;
   });

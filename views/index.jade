@@ -14,16 +14,14 @@ block content
             .col-lg-2.col-lg-offset-8.text-msu Experimenter in Charge
           .row
             .col-lg-2.text-large
-              #ccf-exp.strong
+              .strong
                 span#ccf_experiment_number
                 != ' - '
                 span#ccf_experiment_spokesperson
             .col-lg-8.text-large
-              #ccf-exp-long.strong
-                span#ccf_experiment_title
+              span.strong#ccf_experiment_title
             .col-lg-2.text-large
-              #ccf-exper.strong
-                span#ccf_experiment_a1900Contact
+              span.strong#ccf_experiment_a1900Contact
           .row
             .col-lg-2.text-msu ARTEMIS K500
             .col-lg-2.text-msu K1200
@@ -91,11 +89,14 @@ block content
             .col-lg-2.col-lg-offset-8.text-msu Experimenter in Charge
           .row
             .col-lg-2.text-large
-              strong#ccf-exp 09085 - Fallen, P.
+              .strong
+                span#rea_experiment_number
+                != ' - '
+                span#rea_experiment_spokesperson
             .col-lg-8.text-large
-              strong#ccf-exp-long CCF+ReA Coupled Operations
+              span.strong#rea_experiment_title
             .col-lg-2.text-large
-              strong#ccf-exper
+              span.strong#rea_experiment_a1900Contact
           .row
             .col-lg-2.text-msu EBIT ReA
             .col-lg-2
@@ -105,31 +106,28 @@ block content
             .col-lg-4.text-msu Status
           .row
             .col-lg-2.text-large
-              strong#rea
-                sup#rea-mass 44
-                span#rea-element S
+              .strong
+                sup#rea_mass
+                span#rea_element
                 sup
-                  span#rea-charge 8+
+                  span#rea_charge
                 != ' '
-                span#rea-energy 1.2
+                span#rea_energy
                 != ' '
                 | MeV/u
             .col-lg-2.text-large
 
             .col-lg-2.text-large
-              strong#rea-rf 80.5
+              strong#rea_rf 80.500
                 != ' '
                 | MHz
             .col-lg-1.text-large
             .col-lg-1.text-large
-              strong#rea-vault ReA
+              strong#rea_vault
             .col-lg-4.text-large
-              strong#status Experiment Running
+              strong#rea_status
           .row
-            .progress.no-extra-space
-              .progress-bar.progress-bar-exr(style='width: 35%') EXR
-              //- .progress-bar.progress-bar-danger(style='width: 10%')
-              //- .progress-bar.progress-bar-success(style='width: 55%')
+            .progress.no-extra-space#rea_progress
           .row
             .time-axis
               .time-spot-end now
