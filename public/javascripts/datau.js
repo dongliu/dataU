@@ -150,7 +150,43 @@ var template = {
   charge_id: {
     e: '$[0].shift.operatorInCharge.loginId',
     t: updateImage('#charge_image')
-  }
+  },
+  shift_first: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.firstName',
+    l: '#shift_first'
+  },
+  shift_last: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.lastName',
+    l: '#shift_last'
+  },
+  shift_id: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.loginId',
+    t: updateImage('#shift_image')
+  },
+  beam_first: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Physicist")].employee.firstName',
+    l: '#beam_first'
+  },
+  beam_last: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Physicist")].employee.lastName',
+    l: '#beam_last'
+  },
+  beam_id: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Physicist")].employee.loginId',
+    t: updateImage('#beam_image')
+  },
+  co_first: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Coordinator")].employee.firstName',
+    l: '#co_first'
+  },
+  co_last: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Coordinator")].employee.lastName',
+    l: '#co_last'
+  },
+  co_id: {
+    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Coordinator")].employee.loginId',
+    t: updateImage('#co_image')
+  },
 
 };
 
