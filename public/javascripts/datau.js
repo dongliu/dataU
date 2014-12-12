@@ -12,6 +12,17 @@ function charge(n) {
   return '';
 }
 
+function updateImage(img) {
+  var old = '';
+  return function (id) {
+    if (id !== old) {
+      old = id;
+      $(img).attr('src', '/users/' + old + '/photo');
+    }
+    return;
+  };
+}
+
 // the template to etl the json
 var template = {
   ccf_experiment_number: {
@@ -127,7 +138,20 @@ var template = {
   rea_status: {
     e: '$[1].statusList.status[0].description',
     l: '#rea_status'
+  },
+  charge_first: {
+    e: '$[0].shift.operatorInCharge.firstName',
+    l: '#charge_first'
+  },
+  charge_last: {
+    e: '$[0].shift.operatorInCharge.lastName',
+    l: '#charge_last'
+  },
+  charge_id: {
+    e: '$[0].shift.operatorInCharge.loginId',
+    t: updateImage('#charge_image')
   }
+
 };
 
 function jsonETL(json, template) {
@@ -137,20 +161,29 @@ function jsonETL(json, template) {
       value = jsonPath.eval(json, template[prop].e);
       if (value.length === 1) {
         if (typeof template[prop].t === 'function') {
-          $(template[prop].l).text(template[prop].t(value[0]));
+          if (template[prop].l) {
+            $(template[prop].l).text(template[prop].t(value[0]));
+          } else {
+            template[prop].t(value[0]);
+          }
         } else {
-          $(template[prop].l).text(value[0]);
+          if (template[prop].l) {
+            $(template[prop].l).text(value[0]);
+          }
         }
       } else {
-        if (template[prop].hasOwnProperty('defaultValue')) {
-          $(template[prop].l).text(template[prop].defaultValue);
-        } else {
-          $(template[prop].l).text('');
+        if (template[prop].l) {
+          if (template[prop].hasOwnProperty('defaultValue')) {
+            $(template[prop].l).text(template[prop].defaultValue);
+          } else {
+            $(template[prop].l).text('');
+          }
         }
       }
     }
   }
 }
+
 
 function progressPercentage(start, end) {
   return (end - start) / (24 * 36);
