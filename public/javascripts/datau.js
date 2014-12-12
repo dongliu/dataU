@@ -85,6 +85,23 @@ var template = {
   ccf_status: {
     e: '$[0].statusList.status[0].description',
     l: '#ccf_status'
+  },
+  rea_experiment_number: {
+    e: '$[1].experiment.number',
+    t: padding,
+    l: '#rea_experiment_number'
+  },
+  rea_experiment_spokesperson: {
+    e: '$[1].experiment.spokesperson',
+    l: '#rea_experiment_spokesperson'
+  },
+  rea_experiment_title: {
+    e: '$[1].experiment.title',
+    l: '#rea_experiment_title'
+  },
+  rea_experiment_a1900Contact: {
+    e: '$[1].experiment.a1900Contact',
+    l: '#rea_experiment_a1900Contact'
   }
 };
 
@@ -110,19 +127,31 @@ function jsonETL(json, template) {
   }
 }
 
-function progressPercentage(time) {
-  return Math.round((now.unix() - moment(time).unix()) / (24 * 36));
+function progressPercentage(start, end) {
+  return (end - start) / (24 * 36);
 }
 
-function progressBar(o) {
-  return '<div style="width: ' + progressPercentage(o.timeStamp) + '%" class="progress-bar progress-bar-' + o.name.toLowerCase() + '">' + o.name + '</div>';
-} 
-
-function progress(a) {
+function progressBar(a) {
   var i, out = '';
   for (i = 0; i < a.length; i += 1) {
-    out += progressBar(a[i]);
+    out += '<div style="width: ' + progressPercentage(a[i][0], (i === 0 ? now.unix() : a[i - 1][0])) + '%" class="progress-bar progress-bar-' + a[i][1].toLowerCase() + '">' + a[i][1] + '</div>';
   }
+  return out;
+}
+
+function progress24(a) {
+  var i, out = [];
+  var adayago = now.unix() - 24 * 3600;
+  var timeStamp;
+  for (i = 0; i < a.length; i += 1) {
+    timeStamp = moment(a[i].timeStamp).unix();
+    if (timeStamp < adayago) {
+      out.push([adayago, a[i].name]);
+      return out;
+    }
+    out.push([timeStamp, a[i].name]);
+  }
+  // this mean we have no status recorded 24 hours ago
   return out;
 }
 
@@ -149,7 +178,7 @@ $(function () {
     url: '/pvs/Z013L-C/json',
     data: {
       to: now.toISOString(),
-      from: now.subtract(12, 'h').toISOString()
+      from: moment.unix(now.unix() - 12 * 3600).toISOString()
     },
     dataType: 'json'
   }).done(function (json) {
@@ -174,7 +203,7 @@ $(function () {
     dataType: 'json'
   }).done(function (json) {
     jsonETL(json, template);
-    $('#ccf_progress').html(progress(json[0].statusList.status));
+    $('#ccf_progress').html(progressBar(progress24(json[0].statusList.status)));
   }).fail(function (jqXHR, status, error) {
     //do something;
   });
