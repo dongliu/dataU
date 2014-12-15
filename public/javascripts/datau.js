@@ -2,6 +2,7 @@
 var now;
 var plot;
 var plotdata = [];
+var maxLength = 10 * 1000;
 
 function padding(s) {
   return '0' + s;
@@ -300,16 +301,21 @@ function updatePlot() {
         to: now.toISOString(),
         from: moment(plotdata[plotdata.length - 1][0]).toISOString()
       },
+      dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000],
       dataType: 'json'
     }).done(function (json) {
-      var i, a = json[0].data;
+      var i, a = json[0].data,
+        toshift = 0;
       for (i = 0; i < a.length; i += 1) {
-        plotdata.shift();
         plotdata.push([new Date(a[i].secs * 1000), a[i].val]);
       }
       plot.updateOptions({
         'file': plotdata
       });
+      toshift = plotdata.length - maxLength;
+      for (i = 0; i < toshift; i += 1) {
+        plotdata.shift();
+      }
     }).fail(function (jqXHR, status, error) {
       //do something;
     });
