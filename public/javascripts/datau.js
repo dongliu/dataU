@@ -26,6 +26,50 @@ function updateImage(img) {
   };
 }
 
+var pvs = {
+  ccf_attenuator: {
+    name: 'STRCHAN27',
+    dom: '#ccf_att'
+  },
+  ccf_rf: {
+    name: 'K8FREQ',
+    dom: '#ccf_rf'
+  }
+};
+
+// the led list
+
+var leds = {
+  k12: {
+    name: 'K12_VLTSEC_IND',
+    dom: '#k12'
+  },
+  s3: {
+    name: 'S3_VAULT_SECUR',
+    dom: '#s3'
+  },
+  n3: {
+    name: 'N3_VAULT_SECUR',
+    dom: '#n3'
+  },
+  n4: {
+    name: 'N4_VAULT_SECUR',
+    dom: '#n4'
+  },
+  k5: {
+    name: 'K5MN_LVL_LCKD',
+    dom: '#k5'
+  },
+  s1: {
+    name: 'S1_VAULT_SECUR',
+    dom: '#s1'
+  },
+  a19: {
+    name: 'XFR_M_DOOR_LED',
+    dom: '#a19'
+  }
+};
+
 // the template to etl the json
 var template = {
   ccf_experiment_number: {
@@ -265,6 +309,37 @@ function updateFromHourlog() {
   });
 }
 
+
+
+
+function updatePVs() {
+  var prop, value;
+  for (prop in pvs) {
+    if (pvs.hasOwnProperty(prop)) {
+      $.ajax({
+        url: '/pvs/' + pvs[prop].name + '/csv',
+        data: {
+          from: now.toISOString()
+        }
+      }).done(function (data) {
+        console.log(data.split('\n')[0].split(',')[1]);
+        var value = data.split('\n')[0].split(',')[1];
+        if (value !== pvs[prop].currentValue) {
+          pvs[prop].currentValue = value;
+          $(pvs[prop].dom).text(value);
+        }
+      }).fail(function (jqXHR, status, error) {
+        console.log(error);
+        //do something;
+      });
+    }
+  }
+}
+
+function updateLED() {
+
+}
+
 function initPlot() {
   $.ajax({
     url: '/pvs/Z013L-C/json',
@@ -335,6 +410,7 @@ $(function () {
   updateClock();
   updateFromHourlog();
   updatePlot(plot, plotdata);
+  updatePVs();
   setInterval(function () {
     timedUpdate();
   }, 30 * 1000);
