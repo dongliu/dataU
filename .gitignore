@@ -36,3 +36,6 @@ bower_components
 
 # special config
 config/ad.json
+
+# staff photo
+public/images/staff/*.jpg
