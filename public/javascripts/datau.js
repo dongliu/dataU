@@ -260,7 +260,6 @@ function jsonETL(json, template) {
   }
 }
 
-
 function progressPercentage(start, end) {
   return (end - start) / (24 * 36);
 }
@@ -408,7 +407,6 @@ function updatePlot() {
         to: now.toISOString(),
         from: moment(plotdata[plotdata.length - 1][0]).toISOString()
       },
-      dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000],
       dataType: 'json'
     }).done(function (json) {
       var i, a = json[0].data,
@@ -417,7 +415,8 @@ function updatePlot() {
         plotdata.push([new Date(a[i].secs * 1000), a[i].val]);
       }
       plot.updateOptions({
-        'file': plotdata
+        file: plotdata,
+        dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000]
       });
       toshift = plotdata.length - maxLength;
       for (i = 0; i < toshift; i += 1) {
