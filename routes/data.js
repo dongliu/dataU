@@ -65,7 +65,7 @@ module.exports = function (app) {
   pending_photo = app.get('pending_photo');
   app.get('/pvs/:id/:format', function (req, res) {
     if (req.params.id === undefined) {
-      return res.send(400, 'need pv name');
+      return res.status(400).send('need pv name');
     }
     var format = req.params.format || 'json';
     request({
@@ -78,7 +78,7 @@ module.exports = function (app) {
       timeout: 30 * 1000
     }).on('error', function (err) {
       console.error(err);
-      return res.send(503, 'cannot retrieve device list from ' + dataconfig.pvdataurl);
+      return res.status(503).send('cannot retrieve device list from ' + dataconfig.pvdataurl);
     }).pipe(res);
   });
 
@@ -93,7 +93,7 @@ module.exports = function (app) {
       timeout: 30 * 1000
     }).on('error', function (err) {
       console.error(err);
-      return res.send(503, 'cannot retrieve summary from ' + dataconfig.hourlogreport);
+      return res.status(503).send('cannot retrieve summary from ' + dataconfig.hourlogreport);
     }).pipe(res);
   });
 
