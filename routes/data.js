@@ -1,15 +1,39 @@
 var ad = require('../config/ad.json');
-
 var ldapClient = require('../lib/ldap-client');
-
 var request = require('request');
 var fs = require('fs');
+
+var debug = require('debug')('dataU');
+
 var dataconfig = require('../config/data.json');
 var pending_photo;
 var options = {
   root: __dirname + '/../public/images/staff/',
   maxAge: 30 * 24 * 3600 * 1000
 };
+
+var update = {};
+
+var pvs = [{
+  name: 'K5MN_LVL_LCKD'
+}, {
+  name: 'K12_VLTSEC_IND'
+}, {
+  name: 'XFR_M_DOOR_LED'
+}, {
+  name: 'S1_VAULT_SECUR'
+}, {
+  name: 'S3_VAULT_SECUR'
+}, {
+  name: 'N3_VAULT_SECUR'
+}, {
+  name: 'N4_VAULT_SECUR'
+}, {
+  name: 'STRCHAN27',
+  type: 'string'
+}, {
+  name: 'K8FREQ'
+}];
 
 function fetch_from_ad(id) {
   var searchFilter = ad.searchFilter.replace('_id', id);
@@ -24,7 +48,9 @@ function fetch_from_ad(id) {
     if (err) {
       console.error(err);
       res_list.forEach(function (res) {
-        res.status(500).json({error: 'ldap error'});
+        res.status(500).json({
+          error: 'ldap error'
+        });
       });
     } else {
       if (result.length === 0) {
@@ -56,13 +82,58 @@ function fetch_from_ad(id) {
           }
         });
       }
-
     }
   });
 }
 
+function getPV(pv, now) {
+  request({
+    url: dataconfig.pvdataurl + '.csv',
+    qs: {
+      pv: pv.name,
+      from: now
+    },
+    timeout: 30 * 1000
+  }, function (error, response, body) {
+    var firstLine;
+    if (error) {
+      console.error(error);
+    } else {
+      if (response.statusCode === 200) {
+        firstLine = body.split('\n')[0].split(',');
+        if (firstLine.length === 2) {
+          update[pv.name] = {
+            timeStamp: Number(firstLine[0]),
+            value: pv.type === 'string' ? firstLine[1] : Number(firstLine[1])
+          };
+        }
+      }
+    }
+  });
+}
+
+
+function updatePVs(pvs) {
+  var now = (new Date()).toISOString();
+  debug('retrieving pv values at ' + now);
+  pvs.forEach(function (pv) {
+    getPV(pv, now);
+  });
+  setTimeout(function () {
+    updatePVs(pvs);
+  }, 25 * 1000);
+}
+
 module.exports = function (app) {
+  // start to update PVs task
+  updatePVs(pvs);
+
   pending_photo = app.get('pending_photo');
+
+  app.get('/pvupdates/json', function (req, res) {
+    res.json(update);
+  });
+
   app.get('/pvs/:id/:format', function (req, res) {
     if (req.params.id === undefined) {
       return res.status(400).send('need pv name');

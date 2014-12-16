@@ -308,69 +308,54 @@ function updateFromHourlog() {
   });
 }
 
-
-function getPV(prop) {
-  $.ajax({
-    url: '/pvs/' + pvs[prop].name + '/csv',
-    data: {
-      from: now.toISOString()
-    }
-  }).done(function (data) {
-    // console.log(data.split('\n')[0].split(',')[1]);
-    var value = data.split('\n')[0].split(',')[1];
-    if (value !== pvs[prop].currentValue) {
-      pvs[prop].currentValue = value;
-      $(pvs[prop].dom).text(value);
-    }
-  }).fail(function (jqXHR, status, error) {
-    console.log(error);
-    //do something;
-  });
-}
-
-function updatePVs() {
+function updatePVs(json) {
   var prop, value;
   for (prop in pvs) {
     if (pvs.hasOwnProperty(prop)) {
-      getPV(prop);
+      value = json[pvs[prop].name].value;
+      if (value !== pvs[prop].currentValue) {
+        pvs[prop].currentValue = value;
+        $(pvs[prop].dom).text(value);
+      }
     }
   }
 }
 
 function setLED(dom, value) {
-  if (value === '1') {
+  if (value === 1) {
     $(dom).removeClass('text-muted').addClass('text-success');
   } else {
     $(dom).removeClass('text-success').addClass('text-muted');
   }
 }
 
-function getLED(prop) {
+function updateLEDs(json) {
+  var prop, value;
+  for (prop in leds) {
+    if (leds.hasOwnProperty(prop)) {
+      value = json[leds[prop].name].value;
+      if (value !== leds[prop].currentValue) {
+        leds[prop].currentValue = value;
+        setLED(leds[prop].dom, value);
+      }
+    }
+  }
+}
+
+
+function groupUpdate() {
   $.ajax({
-    url: '/pvs/' + leds[prop].name + '/csv',
-    data: {
-      from: now.toISOString()
-    }
-  }).done(function (data) {
-    var value = data.split('\n')[0].split(',')[1];
-    if (value !== leds[prop].currentValue) {
-      leds[prop].currentValue = value;
-      setLED(leds[prop].dom, value);
-    }
+    url: '/pvupdates/json',
+    dataType: 'json'
+  }).done(function (json) {
+    updateLEDs(json);
+    updatePVs(json);
   }).fail(function (jqXHR, status, error) {
     console.log(error);
     //do something;
   });
 }
 
-function updateLEDs() {
-  var prop, value;
-  for (prop in leds) {
-    if (leds.hasOwnProperty(prop)) {
-      getLED(prop);
-    }
-  }
-}
 
 function initPlot() {
   $.ajax({
@@ -433,8 +418,7 @@ function timedUpdate() {
   updateClock();
   updateFromHourlog();
   updatePlot();
-  updatePVs();
-  updateLEDs();
+  groupUpdate();
   // update other information
 }
 
@@ -443,8 +427,7 @@ $(function () {
   updateClock();
   updateFromHourlog();
   updatePlot();
-  updatePVs();
-  updateLEDs();
+  groupUpdate();
   setInterval(function () {
     timedUpdate();
   }, 30 * 1000);
