@@ -11,11 +11,6 @@ var rotator = require('file-stream-rotator');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var logStream = rotator.getStream({
-  filename: __dirname + '/logs/access.log',
-  frequency: 'test'
-});
-
 var app = express();
 
 // view engine setup
@@ -27,10 +22,21 @@ app.set('pending_photo', {});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-// app.use(logger('dev'));
-app.use(logger('combined', {
-  stream: logStream
-})); // log for production
+
+if (app.get('env') === 'production') {
+  var logStream = rotator.getStream({
+    filename: __dirname + '/logs/access.log',
+    frequency: 'daily'
+  });
+  app.use(logger('combined', {
+    stream: logStream
+  }));
+}
+
+if (app.get('env') === 'development') {
+  app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
