@@ -2,7 +2,7 @@
 var now;
 var plot;
 var plotdata = [];
-var maxLength = 10 * 1000;
+var maxLength = 100 * 1000;
 
 function padding(s) {
   return '0' + s;
@@ -310,34 +310,67 @@ function updateFromHourlog() {
 }
 
 
-
+function getPV(prop) {
+  $.ajax({
+    url: '/pvs/' + pvs[prop].name + '/csv',
+    data: {
+      from: now.toISOString()
+    }
+  }).done(function (data) {
+    // console.log(data.split('\n')[0].split(',')[1]);
+    var value = data.split('\n')[0].split(',')[1];
+    if (value !== pvs[prop].currentValue) {
+      pvs[prop].currentValue = value;
+      $(pvs[prop].dom).text(value);
+    }
+  }).fail(function (jqXHR, status, error) {
+    console.log(error);
+    //do something;
+  });
+}
 
 function updatePVs() {
   var prop, value;
   for (prop in pvs) {
     if (pvs.hasOwnProperty(prop)) {
-      $.ajax({
-        url: '/pvs/' + pvs[prop].name + '/csv',
-        data: {
-          from: now.toISOString()
-        }
-      }).done(function (data) {
-        console.log(data.split('\n')[0].split(',')[1]);
-        var value = data.split('\n')[0].split(',')[1];
-        if (value !== pvs[prop].currentValue) {
-          pvs[prop].currentValue = value;
-          $(pvs[prop].dom).text(value);
-        }
-      }).fail(function (jqXHR, status, error) {
-        console.log(error);
-        //do something;
-      });
+      getPV(prop);
     }
   }
 }
 
-function updateLED() {
+function setLED(dom, value) {
+  if (value === '1') {
+    $(dom).removeClass('text-muted').addClass('text-success');
+  } else {
+    $(dom).removeClass('text-success').addClass('text-muted');
+  }
+}
 
+function getLED(prop) {
+  $.ajax({
+    url: '/pvs/' + leds[prop].name + '/csv',
+    data: {
+      from: now.toISOString()
+    }
+  }).done(function (data) {
+    var value = data.split('\n')[0].split(',')[1];
+    if (value !== leds[prop].currentValue) {
+      leds[prop].currentValue = value;
+      setLED(leds[prop].dom, value);
+    }
+  }).fail(function (jqXHR, status, error) {
+    console.log(error);
+    //do something;
+  });
+}
+
+function updateLEDs() {
+  var prop, value;
+  for (prop in leds) {
+    if (leds.hasOwnProperty(prop)) {
+      getLED(prop);
+    }
+  }
 }
 
 function initPlot() {
@@ -356,7 +389,6 @@ function initPlot() {
     plot = new Dygraph('beam-plot', plotdata, {
       labels: ['Date', 'Primary Beam Intensity (Amps)'],
       // ylabel: '',
-      // xAxisLabelWidth: 100,
       legend: 'always',
       colors: ['#0033CC'],
       height: 150
@@ -402,6 +434,8 @@ function timedUpdate() {
   updateClock();
   updateFromHourlog();
   updatePlot();
+  updatePVs();
+  updateLEDs();
   // update other information
 }
 
@@ -409,8 +443,9 @@ $(function () {
   now = moment();
   updateClock();
   updateFromHourlog();
-  updatePlot(plot, plotdata);
+  updatePlot();
   updatePVs();
+  updateLEDs();
   setInterval(function () {
     timedUpdate();
   }, 30 * 1000);
