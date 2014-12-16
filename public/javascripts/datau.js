@@ -361,14 +361,14 @@ function initPlot() {
   $.ajax({
     url: '/pvs/Z013L-C/json',
     data: {
-      to: now.toISOString(),
+      // to: now.toISOString(),
       from: moment.unix(now.unix() - 12 * 3600).toISOString()
     },
     dataType: 'json'
   }).done(function (json) {
     var i, a = json[0].data;
     for (i = 0; i < a.length; i += 1) {
-      plotdata.push([new Date(a[i].secs * 1000), a[i].val]);
+      plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
     }
     plot = new Dygraph('beam-plot', plotdata, {
       labels: ['Date', 'Primary Beam Intensity (Amps)'],
@@ -387,17 +387,19 @@ function updatePlot() {
     initPlot(plot, plotdata);
   } else {
     $.ajax({
-      url: '/pvs/Z013L-C/json',
-      data: {
-        to: now.toISOString(),
-        from: moment(plotdata[plotdata.length - 1][0]).toISOString()
-      },
+      url: '/plotupdates/json',
+      // data: {
+      //   to: now.toISOString(),
+      //   from: moment(plotdata[plotdata.length - 1][0]).toISOString()
+      // },
       dataType: 'json'
     }).done(function (json) {
       var i, a = json[0].data,
-        toshift = 0;
+        toshift = 0, last = plotdata[plotdata.length - 1][0];
       for (i = 0; i < a.length; i += 1) {
-        plotdata.push([new Date(a[i].secs * 1000), a[i].val]);
+        if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
+          plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+        }
       }
       plot.updateOptions({
         file: plotdata,

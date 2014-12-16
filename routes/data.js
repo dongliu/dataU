@@ -2,6 +2,7 @@ var ad = require('../config/ad.json');
 var ldapClient = require('../lib/ldap-client');
 var request = require('request');
 var fs = require('fs');
+var moment = require('moment');
 
 var debug = require('debug')('dataU');
 
@@ -93,7 +94,7 @@ function getPV(pv, now) {
     url: dataconfig.pvdataurl + '.csv',
     qs: {
       pv: pv.name,
-      from: now
+      from: now.toISOString()
     },
     timeout: 30 * 1000
   }, function (error, response, body) {
@@ -115,26 +116,19 @@ function getPV(pv, now) {
 }
 
 function getPlot(pv, now) {
+  // cache the data from 60 seconds ago to now
   request({
     url: dataconfig.pvdataurl + '.json',
     qs: {
       pv: pv.name,
-      from: now
+      from: moment.unix(now.unix() - 60).toISOString()
     },
     timeout: 30 * 1000
   }, function (error, response, body) {
-    // var lines, out = [];
     if (error) {
       console.error(error);
     } else {
       if (response.statusCode === 200) {
-        // lines = body.split('\n');
-        // lines.forEach(function (line) {
-        //   var splits = line.split(',');
-        //   if (splits.length === 2) {
-        //     out.push(splits);
-        //   }
-        // });
         plotUpdate = body;
       }
     }
@@ -142,7 +136,8 @@ function getPlot(pv, now) {
 }
 
 function updatePVs(pvs) {
-  var now = (new Date()).toISOString();
+  // var now = (new Date()).toISOString();
+  var now = moment();
   debug('retrieving pv values at ' + now);
   pvs.forEach(function (pv) {
     getPV(pv, now);
