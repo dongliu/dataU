@@ -6,12 +6,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var fs = require('fs');
+var rotator = require('file-stream-rotator');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+var logStream = rotator.getStream({
+  filename: __dirname + '/logs/access.log',
+  frequency: 'test'
+});
 
 var app = express();
 
@@ -24,8 +27,10 @@ app.set('pending_photo', {});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-// app.use(logger('combined', {stream: accessLogStream})); // log for production
+// app.use(logger('dev'));
+app.use(logger('combined', {
+  stream: logStream
+})); // log for production
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
