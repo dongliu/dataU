@@ -14,6 +14,8 @@ var options = {
 
 var update = {};
 
+var plotUpdate = [];
+
 var pvs = [{
   name: 'K5MN_LVL_LCKD'
 }, {
@@ -112,6 +114,32 @@ function getPV(pv, now) {
   });
 }
 
+function getPlot(pv, now) {
+  request({
+    url: dataconfig.pvdataurl + '.json',
+    qs: {
+      pv: pv.name,
+      from: now
+    },
+    timeout: 30 * 1000
+  }, function (error, response, body) {
+    // var lines, out = [];
+    if (error) {
+      console.error(error);
+    } else {
+      if (response.statusCode === 200) {
+        // lines = body.split('\n');
+        // lines.forEach(function (line) {
+        //   var splits = line.split(',');
+        //   if (splits.length === 2) {
+        //     out.push(splits);
+        //   }
+        // });
+        plotUpdate = body;
+      }
+    }
+  });
+}
 
 function updatePVs(pvs) {
   var now = (new Date()).toISOString();
@@ -119,8 +147,10 @@ function updatePVs(pvs) {
   pvs.forEach(function (pv) {
     getPV(pv, now);
   });
+  getPlot({name: 'Z013L-C'}, now);
   setTimeout(function () {
     updatePVs(pvs);
+    getPlot({name: 'Z013L-C'}, now);
   }, 25 * 1000);
 }
 
@@ -132,6 +162,11 @@ module.exports = function (app) {
 
   app.get('/pvupdates/json', function (req, res) {
     res.json(update);
+  });
+
+  app.get('/plotupdates/json', function (req, res) {
+    res.type('json');
+    res.send(plotUpdate);
   });
 
   app.get('/pvs/:id/:format', function (req, res) {
