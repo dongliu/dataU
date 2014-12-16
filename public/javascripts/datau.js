@@ -388,10 +388,6 @@ function updatePlot() {
   } else {
     $.ajax({
       url: '/plotupdates/json',
-      // data: {
-      //   to: now.toISOString(),
-      //   from: moment(plotdata[plotdata.length - 1][0]).toISOString()
-      // },
       dataType: 'json'
     }).done(function (json) {
       var i, a = json[0].data,

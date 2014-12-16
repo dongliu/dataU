@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "dataU",
+      "script": "bin/www",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss Z",
+      "log_file": "logs/datau.stdout.log",
+      "error_file": "logs/datau.stderr.log",
+      "ignoreWatch": [
+        "[\\/\\\\]\\./",
+        "node_modules"
+      ],
+      "watch": true,
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
