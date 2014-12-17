@@ -100,7 +100,7 @@ td {
   color: #33aa00;
 }
 .progress-marker {
-  width: 1.5px;
+  width: 2px;
   height: 10px;
   position: absolute;
   background: black;
