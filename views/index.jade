@@ -67,14 +67,9 @@ block content
               span.strong#ccf_status
           .row
             .progress.no-extra-space#ccf_progress
-              //- .progress-bar.progress-bar-exr(style='width: 20%') EXR
-              //- .progress-bar.progress-bar-sof(style='width: 10%') SOF
-              //- .progress-bar.progress-bar-uof(style='width: 10%') UOF
-              //- .progress-bar.progress-bar-pdt(style='width: 10%') PDT
-              //- .progress-bar.progress-bar-sdt(style='width: 10%') SDT
-              //- .progress-bar.progress-bar-idt(style='width: 10%') IDT
-              //- .progress-bar.progress-bar-exr(style='width: 20%') EXR
-              //- .progress-bar.progress-bar-xdt(style='width: 10%') XDT
+            .progress-marker(style='right:25%')
+            .progress-marker(style='right:50%')
+            .progress-marker(style='right:75%')
           .row
             .time-axis
               .time-spot-end now
@@ -128,6 +123,9 @@ block content
               strong#rea_status
           .row
             .progress.no-extra-space#rea_progress
+            .progress-marker(style='right:25%')
+            .progress-marker(style='right:50%')
+            .progress-marker(style='right:75%')
           .row
             .time-axis
               .time-spot-end now
@@ -176,7 +174,7 @@ block content
           .row
             .col-lg-2.text-large.text-center
               .strong CCF Attenuator:
-                span#ccf_att
+                div#ccf_att
             .col-lg-2.text-large
               .row.text-center
                   strong Vault Secure Status

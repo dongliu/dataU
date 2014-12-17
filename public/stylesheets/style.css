@@ -96,3 +96,13 @@ td {
 .strong {
   font-weight: bold;
 }
+.led-success {
+  color: #33aa00;
+}
+.progress-marker {
+  width: 1.5px;
+  height: 10px;
+  position: absolute;
+  background: black;
+  bottom: 25px;
+}

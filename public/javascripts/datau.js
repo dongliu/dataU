@@ -35,7 +35,10 @@ var pvs = {
   },
   ccf_rf: {
     name: 'K8FREQ',
-    dom: '#ccf_rf'
+    dom: '#ccf_rf',
+    t: function (n) {
+      return n.toFixed(4);
+    }
   }
 };
 
@@ -267,9 +270,10 @@ function progressPercentage(start, end) {
 }
 
 function progressBar(a) {
-  var i, out = '';
+  var i, out = '', p;
   for (i = 0; i < a.length; i += 1) {
-    out += '<div style="width: ' + progressPercentage(a[i][0], (i === 0 ? now.unix() : a[i - 1][0])) + '%" class="progress-bar progress-bar-' + a[i][1].toLowerCase() + '">' + a[i][1] + '</div>';
+    p = progressPercentage(a[i][0], (i === 0 ? now.unix() : a[i - 1][0]));
+    out += '<div style="width: ' + p + '%" class="progress-bar progress-bar-' + a[i][1].toLowerCase() + '">' + (p > 2 ? a[i][1] : '') + '</div>';
   }
   return out;
 }
@@ -288,6 +292,18 @@ function progress24(a) {
   }
   // this mean we have no status recorded 24 hours ago
   return out;
+}
+
+function collapse(a) {
+  var i = 1;
+  while (i < a.length) {
+    if (a[i][1] === a[i - 1][1]) {
+      a.splice(i - 1, 1);
+    } else {
+      i += 1; //go to next in line
+    }
+  }
+  return a;
 }
 
 
@@ -312,8 +328,8 @@ function updateFromHourlog() {
   }).fail(function (jqXHR, status, error) {
     //do something;
   }).always(function () {
-    $('#ccf_progress').html(progressBar(progress24(facilityStatus[0])));
-    $('#rea_progress').html(progressBar(progress24(facilityStatus[1])));
+    $('#ccf_progress').html(progressBar(collapse(progress24(facilityStatus[0]))));
+    $('#rea_progress').html(progressBar(collapse(progress24(facilityStatus[1]))));
   });
 }
 
@@ -324,7 +340,11 @@ function updatePVs(json) {
       value = json[pvs[prop].name].value;
       if (value !== pvs[prop].currentValue) {
         pvs[prop].currentValue = value;
-        $(pvs[prop].dom).text(value);
+        if (pvs[prop].t && typeof pvs[prop].t === 'function') {
+          $(pvs[prop].dom).text(pvs[prop].t(value));
+        } else {
+          $(pvs[prop].dom).text(value);
+        }
       }
     }
   }
@@ -332,9 +352,9 @@ function updatePVs(json) {
 
 function setLED(dom, value) {
   if (value === 1) {
-    $(dom).removeClass('text-muted').addClass('text-success');
+    $(dom).removeClass('text-muted').addClass('led-success');
   } else {
-    $(dom).removeClass('text-success').addClass('text-muted');
+    $(dom).removeClass('led-success').addClass('text-muted');
   }
 }
 
@@ -382,7 +402,7 @@ function initPlot() {
       plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
     }
     plot = new Dygraph('beam-plot', plotdata, {
-      labels: ['Date', 'Primary Beam Intensity (Amps)'],
+      labels: ['Date', 'Primary Beam Intensity'],
       // ylabel: '',
       legend: 'always',
       colors: ['#0033CC'],
