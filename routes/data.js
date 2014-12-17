@@ -17,6 +17,8 @@ var update = {};
 
 var plotUpdate = [];
 
+var summary = {};
+
 var pvs = [{
   name: 'K5MN_LVL_LCKD'
 }, {
@@ -135,18 +137,43 @@ function getPlot(pv, now) {
   });
 }
 
+function getSummary() {
+  request({
+    url: dataconfig.hourlogreport,
+    strictSSL: false,
+    headers: {
+      Accept: 'application/json',
+      'DISCS-Authorization': 'xxxx:zzz'
+    },
+    timeout: 30 * 1000
+  }, function (error, response, body) {
+    if (error) {
+      console.error(error);
+    } else {
+      if (response.statusCode === 200) {
+        summary = body;
+      }
+    }
+  });
+}
+
 function updatePVs(pvs) {
-  // var now = (new Date()).toISOString();
   var now = moment();
   debug('retrieving pv values at ' + now);
   pvs.forEach(function (pv) {
     getPV(pv, now);
   });
-  getPlot({name: 'Z013L-C'}, now);
+  getPlot({
+    name: 'Z013L-C'
+  }, now);
+  getSummary();
   setTimeout(function () {
     updatePVs(pvs);
-    getPlot({name: 'Z013L-C'}, now);
-  }, 25 * 1000);
+    getPlot({
+      name: 'Z013L-C'
+    }, now);
+    getSummary();
+  }, 30 * 1000);
 }
 
 module.exports = function (app) {
@@ -184,18 +211,8 @@ module.exports = function (app) {
   });
 
   app.get('/facilities/summary', function (req, res) {
-    request({
-      url: dataconfig.hourlogreport,
-      strictSSL: false,
-      headers: {
-        Accept: 'application/json',
-        'DISCS-Authorization': 'xxxx:zzz'
-      },
-      timeout: 30 * 1000
-    }).on('error', function (err) {
-      console.error(err);
-      return res.status(503).send('cannot retrieve summary from ' + dataconfig.hourlogreport);
-    }).pipe(res);
+    res.type('json');
+    res.send(summary);
   });
 
   app.get('/users/:id/photo', function (req, res) {

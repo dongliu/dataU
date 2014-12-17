@@ -4,6 +4,8 @@ var plot;
 var plotdata = [];
 var maxLength = 100 * 1000;
 
+var facilityStatus = [];
+
 function padding(s) {
   return '0' + s;
 }
@@ -298,13 +300,20 @@ function updateClock() {
 function updateFromHourlog() {
   $.ajax({
     url: '/facilities/summary',
-    dataType: 'json'
-  }).done(function (json) {
-    jsonETL(json, template);
-    $('#ccf_progress').html(progressBar(progress24(json[0].statusList.status)));
-    $('#rea_progress').html(progressBar(progress24(json[1].statusList.status)));
+    dataType: 'json',
+    ifModified: true
+  }).done(function (json, textStatus, jqXHR) {
+    if (jqXHR.status === 200) {
+      jsonETL(json, template);
+      facilityStatus = [];
+      facilityStatus.push(json[0].statusList.status);
+      facilityStatus.push(json[1].statusList.status);
+    }
   }).fail(function (jqXHR, status, error) {
     //do something;
+  }).always(function () {
+    $('#ccf_progress').html(progressBar(progress24(facilityStatus[0])));
+    $('#rea_progress').html(progressBar(progress24(facilityStatus[1])));
   });
 }
 
@@ -346,10 +355,13 @@ function updateLEDs(json) {
 function groupUpdate() {
   $.ajax({
     url: '/pvupdates/json',
-    dataType: 'json'
-  }).done(function (json) {
-    updateLEDs(json);
-    updatePVs(json);
+    dataType: 'json',
+    ifModified: true
+  }).done(function (json, textStatus, jqXHR) {
+    if (jqXHR.status === 200) {
+      updateLEDs(json);
+      updatePVs(json);
+    }
   }).fail(function (jqXHR, status, error) {
     console.log(error);
     //do something;
@@ -361,7 +373,6 @@ function initPlot() {
   $.ajax({
     url: '/pvs/Z013L-C/json',
     data: {
-      // to: now.toISOString(),
       from: moment.unix(now.unix() - 12 * 3600).toISOString()
     },
     dataType: 'json'
@@ -388,25 +399,30 @@ function updatePlot() {
   } else {
     $.ajax({
       url: '/plotupdates/json',
-      dataType: 'json'
-    }).done(function (json) {
-      var i, a = json[0].data,
-        toshift = 0, last = plotdata[plotdata.length - 1][0];
-      for (i = 0; i < a.length; i += 1) {
-        if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
-          plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+      dataType: 'json',
+      ifModified: true
+    }).done(function (json, textStatus, jqXHR) {
+      if (jqXHR.status === 200) {
+        var i, a = json[0].data,
+          toshift = 0,
+          last = plotdata[plotdata.length - 1][0];
+        for (i = 0; i < a.length; i += 1) {
+          if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
+            plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+          }
         }
-      }
-      plot.updateOptions({
-        file: plotdata,
-        dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000]
-      });
-      toshift = plotdata.length - maxLength;
-      for (i = 0; i < toshift; i += 1) {
-        plotdata.shift();
+        plot.updateOptions({
+          file: plotdata,
+          dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000]
+        });
+        toshift = plotdata.length - maxLength;
+        for (i = 0; i < toshift; i += 1) {
+          plotdata.shift();
+        }
       }
     }).fail(function (jqXHR, status, error) {
       //do something;
+      console.log(error);
     });
   }
 }
@@ -428,5 +444,5 @@ $(function () {
   groupUpdate();
   setInterval(function () {
     timedUpdate();
-  }, 30 * 1000);
+  }, 15 * 1000);
 });
