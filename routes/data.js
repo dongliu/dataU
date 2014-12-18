@@ -72,18 +72,13 @@ function fetch_from_ad(id) {
           });
         });
       } else {
+        res_list.forEach(function (res) {
+          res.set('Content-Type', 'image/jpeg');
+          res.send(result[0].thumbnailPhoto);
+        });
         fs.writeFile(options.root + id + '.jpg', result[0].thumbnailPhoto, function (err) {
           if (err) {
             console.error(err);
-            res_list.forEach(function (res) {
-              res.status(500).json({
-                error: 'cannot access file.'
-              });
-            });
-          } else {
-            res_list.forEach(function (res) {
-              res.sendFile(id + '.jpg', options);
-            });
           }
         });
       }
