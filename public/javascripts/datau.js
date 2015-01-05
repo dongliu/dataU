@@ -1,10 +1,17 @@
 /*global moment: false, Dygraph: false, jsonPath*/
-var now;
-var plot;
-var plotdata = [];
-var maxLength = 100 * 1000;
 
-var facilityStatus = [];
+var datauGlobal = {
+  now: null,
+  plot: null,
+  plotdata: [],
+  maxLength: 100 * 1000,
+  facilityStatus: []
+};
+// var now;
+// var plot;
+// var plotdata = [];
+// var maxLength = 100 * 1000;
+// var facilityStatus = [];
 
 function padding(s) {
   return '0' + s;
@@ -272,7 +279,7 @@ function progressPercentage(start, end) {
 function progressBar(a) {
   var i, out = '', p;
   for (i = 0; i < a.length; i += 1) {
-    p = progressPercentage(a[i][0], (i === 0 ? now.unix() : a[i - 1][0]));
+    p = progressPercentage(a[i][0], (i === 0 ? datauGlobal.now.unix() : a[i - 1][0]));
     out += '<div style="width: ' + p + '%" class="progress-bar progress-bar-' + a[i][1].toLowerCase() + '">' + (p > 2 ? a[i][1] : '') + '</div>';
   }
   return out;
@@ -280,7 +287,7 @@ function progressBar(a) {
 
 function progress24(a) {
   var i, out = [];
-  var adayago = now.unix() - 24 * 3600;
+  var adayago = datauGlobal.now.unix() - 24 * 3600;
   var timeStamp;
   for (i = 0; i < a.length; i += 1) {
     timeStamp = moment(a[i].timeStamp).unix();
@@ -309,8 +316,8 @@ function collapse(a) {
 
 
 function updateClock() {
-  $('#day').text(now.format('dddd, Do MMMM YYYY'));
-  $('#time').text(now.format('HH:mm'));
+  $('#day').text(datauGlobal.now.format('dddd, Do MMMM YYYY'));
+  $('#time').text(datauGlobal.now.format('HH:mm'));
 }
 
 function updateFromHourlog() {
@@ -321,15 +328,15 @@ function updateFromHourlog() {
   }).done(function (json, textStatus, jqXHR) {
     if (jqXHR.status === 200) {
       jsonETL(json, template);
-      facilityStatus = [];
-      facilityStatus.push(json[0].statusList.status);
-      facilityStatus.push(json[1].statusList.status);
+      datauGlobal.facilityStatus = [];
+      datauGlobal.facilityStatus.push(json[0].statusList.status);
+      datauGlobal.facilityStatus.push(json[1].statusList.status);
     }
   }).fail(function (jqXHR, status, error) {
     //do something;
   }).always(function () {
-    $('#ccf_progress').html(progressBar(collapse(progress24(facilityStatus[0]))));
-    $('#rea_progress').html(progressBar(collapse(progress24(facilityStatus[1]))));
+    $('#ccf_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[0]))));
+    $('#rea_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[1]))));
   });
 }
 
@@ -393,15 +400,15 @@ function initPlot() {
   $.ajax({
     url: '/pvs/Z013L-C/json',
     data: {
-      from: moment.unix(now.unix() - 12 * 3600).toISOString()
+      from: moment.unix(datauGlobal.now.unix() - 12 * 3600).toISOString()
     },
     dataType: 'json'
   }).done(function (json) {
     var i, a = json[0].data;
     for (i = 0; i < a.length; i += 1) {
-      plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+      datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
     }
-    plot = new Dygraph('beam-plot', plotdata, {
+    datauGlobal.plot = new Dygraph('beam-plot', datauGlobal.plotdata, {
       labels: ['Date', 'Primary Beam Intensity'],
       // ylabel: '',
       legend: 'always',
@@ -414,8 +421,8 @@ function initPlot() {
 }
 
 function updatePlot() {
-  if (plotdata.length === 0) {
-    initPlot(plot, plotdata);
+  if (datauGlobal.plotdata.length === 0) {
+    initPlot();
   } else {
     $.ajax({
       url: '/plotupdates/json',
@@ -425,19 +432,19 @@ function updatePlot() {
       if (jqXHR.status === 200) {
         var i, a = json[0].data,
           toshift = 0,
-          last = plotdata[plotdata.length - 1][0];
+          last = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0];
         for (i = 0; i < a.length; i += 1) {
           if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
-            plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+            datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
           }
         }
-        plot.updateOptions({
-          file: plotdata,
-          dateWindow: [(now.unix() - 12 * 3600) * 1000, now.unix() * 1000]
+        datauGlobal.plot.updateOptions({
+          file: datauGlobal.plotdata,
+          dateWindow: [(datauGlobal.now.unix() - 12 * 3600) * 1000, datauGlobal.now.unix() * 1000]
         });
-        toshift = plotdata.length - maxLength;
+        toshift = datauGlobal.plotdata.length - datauGlobal.maxLength;
         for (i = 0; i < toshift; i += 1) {
-          plotdata.shift();
+          datauGlobal.plotdata.shift();
         }
       }
     }).fail(function (jqXHR, status, error) {
@@ -448,7 +455,7 @@ function updatePlot() {
 }
 
 function timedUpdate() {
-  now = moment();
+  datauGlobal.now = moment();
   updateClock();
   updateFromHourlog();
   updatePlot();
@@ -457,7 +464,7 @@ function timedUpdate() {
 }
 
 $(function () {
-  now = moment();
+  datauGlobal.now = moment();
   updateClock();
   updateFromHourlog();
   updatePlot();
