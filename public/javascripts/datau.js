@@ -7,11 +7,6 @@ var datauGlobal = {
   maxLength: 100 * 1000,
   facilityStatus: []
 };
-// var now;
-// var plot;
-// var plotdata = [];
-// var maxLength = 100 * 1000;
-// var facilityStatus = [];
 
 function padding(s) {
   return '0' + s;
