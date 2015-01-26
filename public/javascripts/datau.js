@@ -19,6 +19,10 @@ function charge(n) {
   return '';
 }
 
+function mass(n) {
+  return n > 0 ? n : '';
+}
+
 function updateImage(img) {
   var old = '';
   return function (id) {
@@ -98,6 +102,7 @@ var template = {
   },
   k500_mass: {
     e: '$[0].beamList.beam[?(@.system==="K500")].massNumber',
+    t: mass,
     l: '#k500_mass'
   },
   k500_element: {
@@ -115,6 +120,7 @@ var template = {
   },
   k1200_mass: {
     e: '$[0].beamList.beam[?(@.system==="K1200")].massNumber',
+    t: mass,
     l: '#k1200_mass'
   },
   k1200_element: {
@@ -132,6 +138,7 @@ var template = {
   },
   a1900_mass: {
     e: '$[0].beamList.beam[?(@.system==="A1900")].massNumber',
+    t: mass,
     l: '#a1900_mass'
   },
   a1900_element: {
