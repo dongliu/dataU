@@ -1,0 +1,5 @@
+{
+  "pvdataurl" : "http://epicsarchiver.nscl.msu.edu/retrieval/data/getData",
+  "hourlogreport" : "http://controlsapp1.nscl.msu.edu/hourlog/api/rest/v0.1.0/reports/summary",
+  "hourlogkey" : "secret"
+}
