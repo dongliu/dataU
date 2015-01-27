@@ -138,7 +138,7 @@ function getSummary() {
     strictSSL: false,
     headers: {
       Accept: 'application/json',
-      'DISCS-Authorization': 'xxxx:zzz'
+      'DISCS-Authorization': dataconfig.hourlogkey
     },
     timeout: 30 * 1000
   }, function (error, response, body) {
