@@ -9,6 +9,13 @@ mixin progress(id)
     .progress-marker(style='right:25%')
     .progress-marker(style='right:50%')
     .progress-marker(style='right:75%')
+mixin time-axis
+  .time-axis
+    .time-spot-end now
+    .time-spot.text-center 6 hours ago
+    .time-spot.text-center 12 hours ago
+    .time-spot.text-center 18 hours ago
+    .time-spot-end.text-right 24 hours ago
 
 block content
   .vcenter
@@ -105,12 +112,7 @@ block content
             +progress('ccf_progress')
 
           .row
-            .time-axis
-              .time-spot-end now
-              .time-spot.text-center 6 hours ago
-              .time-spot.text-center 12 hours ago
-              .time-spot.text-center 18 hours ago
-              .time-spot-end.text-right 24 hours ago
+            +time-axis
         //- rea
         li.list-group-item
           .row
@@ -175,12 +177,7 @@ block content
           .row
             +progress('rea_progress')
           .row
-            .time-axis
-              .time-spot-end now
-              .time-spot.text-center 6 hours ago
-              .time-spot.text-center 12 hours ago
-              .time-spot.text-center 18 hours ago
-              .time-spot-end.text-right 24 hours ago
+            +time-axis
         //- Operators
         li.list-group-item
           .row
