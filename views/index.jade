@@ -182,126 +182,93 @@ block content
         li.list-group-item
           .row
             .inline
-              img#charge_image(alt='Operator in charge', height='144px', data-src='holder.js/108x144/text:Operator in charge')
+              .inline
+                img#charge_image(alt='Operator in charge', height='144px', data-src='holder.js/108x144/text:Operator in charge')
+              .inline
+                .text-msu Operator
+                .text-msu in charge
+                .text-large
+                  .strong#charge_first
+                  .strong#charge_last
             .inline
-              .text-msu Operator
-              .text-msu in charge
-              .text-large
-                .strong#charge_first
-                .strong#charge_last
+              .inline
+                img#shift_image(alt='Operator on shift', height='144px', data-src='holder.js/108x144/text:Operator on shift')
+              .inline
+                .text-msu Operator
+                .text-msu on shift
+                .text-large
+                  .strong#shift_first
+                  .strong#shift_last
             .inline
-              img#shift_image(alt='Operator on shift', height='144px', data-src='holder.js/108x144/text:Operator on shift')
+              .inline
+                img#beam_image(alt='Beam Physicist on call', height='144px', data-src='holder.js/108x144/text:Beam Physicist on call')
+              .inline
+                .text-msu Beam
+                .text-msu Physicist
+                .text-msu on call
+                .text-large
+                  .strong#beam_first
+                  .strong#beam_last
             .inline
-              .text-msu Operator
-              .text-msu on shift
-              .text-large
-                .strong#shift_first
-                .strong#shift_last
-            .inline
-              img#beam_image(alt='Beam Physicist on call', height='144px', data-src='holder.js/108x144/text:Beam Physicist on call')
-            .inline
-              .text-msu Beam
-              .text-msu Physicist
-              .text-msu on call
-              .text-large
-                .strong#beam_first
-                .strong#beam_last
-            .inline
-              img#co_image(alt='Beam Coordinator', height='144px', data-src='holder.js/108x144/text:Beam Coordinator')
-            .inline
-              .text-msu Beam
-              .text-msu Coordinator
-              .text-large
-                .strong#co_first
-                .strong#co_last
+              .inline
+                img#co_image(alt='Beam Coordinator', height='144px', data-src='holder.js/108x144/text:Beam Coordinator')
+              .inline
+                .text-msu Beam
+                .text-msu Coordinator
+                .text-large
+                  .strong#co_first
+                  .strong#co_last
         //- Status
         li.list-group-item
           .row
-            .col-lg-2.col-md-3.col-sm-6.col-xs-6
+            .col-lg-2.col-md-4.col-sm-6.col-xs-6
               .text-large.text-center
                 .strong CCF Attenuator:
                   div#ccf_att
-            .col-lg-2.col-md-3.col-sm-6.col-xs-6.text-large
+            .col-lg-3.col-md-4.col-sm-6.col-xs-6.text-large
               .row.text-center
+                .col-lg-9.col-md-9.col-sm-9.col-xs-9
                   strong Vault Secure Status
               .row
-                .col-lg-4.col-lg-offset-1.col-md-4.col-md-offset-1.col-sm-5.col-xs-6
-                .col-lg-1.col-lg-offset-1.col-md-1.col-md-offset-1.col-sm-2.col-xs-3
-                    i.fa.fa-circle#k5
-                .col-lg-3.col-md-2.col-sm-3.col-xs-4
-                  strong K500
-                .col-lg-1.col-lg-offset-1.col-md-1.col-md-offset-1.col-sm-2.col-xs-3
-                    i.fa.fa-circle#s1
-                .col-lg-3.col-md-2.col-sm-3.col-xs-4
-                  strong S1
-              .row
-                .col-lg-1.col-lg-offset-1
-                    i.fa.fa-circle#k12
-                .col-lg-3
-                  strong K1200
-                .col-lg-1.col-lg-offset-1
-                    i.fa.fa-circle#s3
-                .col-lg-3
-                  strong S3
-              .row
-                .col-lg-1.col-lg-offset-1
-                    i.fa.fa-circle#a19
-                .col-lg-3
-                  strong A1900
-                .col-lg-1.col-lg-offset-1
-                    i.fa.fa-circle#n3
-                .col-lg-3
-                  strong N3
-              .row
-                .col-lg-1.col-lg-offset-1
-                .col-lg-3
-                .col-lg-1.col-lg-offset-1
-                    i.fa.fa-circle#n4
-                .col-lg-3
-                  strong N4
-          //- .row
-          //-   .col-lg-2.text-large.text-center
-          //-     .strong CCF Attenuator:
-          //-       div#ccf_att
-          //-   .col-lg-2.text-large
-          //-     .row.text-center
-          //-         strong Vault Secure Status
-          //-     .row
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#k5
-          //-       .col-lg-3
-          //-         strong K500
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#s1
-          //-       .col-lg-3
-          //-         strong S1
-          //-     .row
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#k12
-          //-       .col-lg-3
-          //-         strong K1200
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#s3
-          //-       .col-lg-3
-          //-         strong S3
-          //-     .row
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#a19
-          //-       .col-lg-3
-          //-         strong A1900
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#n3
-          //-       .col-lg-3
-          //-         strong N3
-          //-     .row
-          //-       .col-lg-1.col-lg-offset-1
-          //-       .col-lg-3
-          //-       .col-lg-1.col-lg-offset-1
-          //-           i.fa.fa-circle#n4
-          //-       .col-lg-3
-          //-         strong N4
-          //-   .col-lg-8
-          //-     #beam-plot
+                .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#k5
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong K500
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#k12
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong K1200
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#a19
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong A1900
+                .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#s1
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong S1
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#s3
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong S3
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#n3
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong N3
+                  .row
+                    .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                      i.fa.fa-circle#n4
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong N4
+            .col-lg-7.col-md-12.col-sm-12.col-xs-12
+              #beam-plot
 
 
 block js

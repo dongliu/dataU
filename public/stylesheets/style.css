@@ -96,6 +96,7 @@ td {
 .strong {
   font-weight: bold;
 }
+
 .led-success {
   color: #33aa00;
 }
@@ -113,5 +114,5 @@ td {
 }
 
 .list-group-item {
-  margin-top: 15px;
+  margin-top: 10px;
 }
