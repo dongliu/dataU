@@ -99,10 +99,19 @@ td {
 .led-success {
   color: #33aa00;
 }
+
+.bar-wrap {
+  position: relative;
+}
+
 .progress-marker {
   width: 2px;
   height: 10px;
   position: absolute;
   background: black;
-  bottom: 25px;
+  bottom: -5px;
+}
+
+.list-group-item {
+  margin-top: 15px;
 }
