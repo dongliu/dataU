@@ -154,7 +154,7 @@ function getSummary() {
 
 function updatePVs(pvs) {
   var now = moment();
-  debug('retrieving pv values at ' + now);
+  debug('retrieving pv values at ' + now.format());
   pvs.forEach(function (pv) {
     getPV(pv, now);
   });
