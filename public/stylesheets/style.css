@@ -135,6 +135,10 @@ td {
   padding: 0px 5px;
 }
 
+.row {
+  margin: 0px -10px;
+}
+
 .list-group {
   margin-bottom: 0px;
 }
