@@ -415,7 +415,7 @@ function initPlot() {
       // ylabel: '',
       legend: 'always',
       colors: ['#0033CC'],
-      height: 150
+      height: 250
     });
   }).fail(function (jqXHR, status, error) {
     //do something;

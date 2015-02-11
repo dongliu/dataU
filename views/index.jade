@@ -23,256 +23,257 @@ block content
       .panel-heading
         span#day.text-large loading date
         span#time.text-large.pull-right loading time
-      ul.list-group
-        //- ccf
-        li.list-group-item#ccf
-          .well
-            .row
-              .col-lg-2.col-md-3.col-sm-6.col-xs-6
-                .row
-                  .text-msu CCF Current Experiment
-                .row
-                  .text-large.strong
-                    span#ccf_experiment_number
-                    != ' - '
-                    span#ccf_experiment_spokesperson
-              .col-lg-8.col-md-6.col-sm-6
-                .row
-                  .col
-                    +space
-                .row
-                  .text-large.text-center
-                    span.strong#ccf_experiment_title
-              .col-lg-2.col-md-3.col-sm-6.col-xs-6
-                .row
-                  .text-msu Experimenter in Charge
-                .row
-                  .text-large.strong
-                    span.strong#ccf_experimenter_in_charge
-                    +space
-            .row
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu ARTEMIS K500
-                .row
-                  .text-large.strong
-                    sup#k500_mass
-                    span#k500_element
-                    sup
-                      span#k500_charge
-                    != ' '
-                    span#k500_energy
-                    != ' '
-                    | MeV/u
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu K1200
-                .row
-                  .text-large.strong
-                    sup#k1200_mass
-                    span#k1200_element
-                    sup
-                      span#k1200_charge
-                    != ' '
-                    span#k1200_energy
-                    != ' '
-                    | MeV/u
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu RF Frequency
-                .row
-                  .text-large.strong
-                    span#ccf_rf
-                    != ' '
-                    | MHz
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu A1900
-                .row
-                  .text-large.strong
-                    sup#a1900_mass
-                    span#a1900_element
-                    sup
-                      span#a1900_charge
-                    +space
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu Vault
-                .row
-                  .text-large.strong
-                    span.strong#ccf_vault
-                    +space
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu Status
-                .row
-                  .text-large.strong
-                    span.strong#ccf_status
-                    +space
-            .row
-              +progress('ccf_progress')
-
-            .row
-              +time-axis
-        //- rea
-        li.list-group-item
-          .well
-            .row
-              .col-lg-2.col-md-3.col-sm-6.col-xs-6
-                .row
-                  .text-msu ReA Current Experiment
-                .row
-                  .text-large.strong
-                    span#rea_experiment_number
-                    != ' - '
-                    span#rea_experiment_spokesperson
-              .col-lg-8.col-md-6.col-sm-6
-                .row
-                  .col
-                    +space
-                .row
-                  .text-large.text-center
-                    span.strong#rea_experiment_title
-              .col-lg-2.col-md-3.col-sm-6.col-xs-6
-                .row
-                  .text-msu Experimenter in Charge
-                .row
-                  .text-large.strong
-                    span.strong#rea_experimenter_in_charge
-                    +space
-            .row
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu EBIT ReA
-                .row
-                  .text-large.strong
-                    sup#rea_mass
-                    span#rea_element
-                    sup
-                      span#rea_charge
-                    != ' '
-                    span#rea_energy
-                    != ' '
-                    | MeV/u
-              .col-lg-2.col-lg-offset-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu RF Frequency
-                .row
-                  .text-large.strong
-                    #rea_rf 80.500
+      .panel-body
+        ul.list-group
+          //- ccf
+          li.list-group-item#ccf
+            .well
+              .row
+                .col-lg-2.col-md-3.col-sm-6.col-xs-6
+                  .row
+                    .text-msu CCF Current Experiment
+                  .row
+                    .text-large.strong
+                      span#ccf_experiment_number
+                      != ' - '
+                      span#ccf_experiment_spokesperson
+                .col-lg-8.col-md-6.col-sm-6
+                  .row
+                    .col
+                      +space
+                  .row
+                    .text-large.text-center
+                      span.strong#ccf_experiment_title
+                .col-lg-2.col-md-3.col-sm-6.col-xs-6
+                  .row
+                    .text-msu Experimenter in Charge
+                  .row
+                    .text-large.strong
+                      span.strong#ccf_experimenter_in_charge
+                      +space
+              .row
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu ARTEMIS K500
+                  .row
+                    .text-large.strong
+                      sup#k500_mass
+                      span#k500_element
+                      sup
+                        span#k500_charge
+                      != ' '
+                      span#k500_energy
+                      != ' '
+                      | MeV/u
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu K1200
+                  .row
+                    .text-large.strong
+                      sup#k1200_mass
+                      span#k1200_element
+                      sup
+                        span#k1200_charge
+                      != ' '
+                      span#k1200_energy
+                      != ' '
+                      | MeV/u
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu RF Frequency
+                  .row
+                    .text-large.strong
+                      span#ccf_rf
                       != ' '
                       | MHz
-              .col-lg-2.col-lg-offset-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu Vault
-                .row
-                  .text-large.strong
-                    span.strong#rea_vault
-                    +space
-              .col-lg-2.col-md-3.col-sm-4.col-xs-6
-                .row
-                  .text-msu Status
-                .row
-                  .text-large.strong
-                    span.strong#rea_status
-                    +space
-            .row
-              +progress('rea_progress')
-            .row
-              +time-axis
-        //- Operators
-        li.list-group-item
-          .well
-            .row
-              .inline
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu A1900
+                  .row
+                    .text-large.strong
+                      sup#a1900_mass
+                      span#a1900_element
+                      sup
+                        span#a1900_charge
+                      +space
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu Vault
+                  .row
+                    .text-large.strong
+                      span.strong#ccf_vault
+                      +space
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu Status
+                  .row
+                    .text-large.strong
+                      span.strong#ccf_status
+                      +space
+              .row
+                +progress('ccf_progress')
+
+              .row
+                +time-axis
+          //- rea
+          li.list-group-item
+            .well
+              .row
+                .col-lg-2.col-md-3.col-sm-6.col-xs-6
+                  .row
+                    .text-msu ReA Current Experiment
+                  .row
+                    .text-large.strong
+                      span#rea_experiment_number
+                      != ' - '
+                      span#rea_experiment_spokesperson
+                .col-lg-8.col-md-6.col-sm-6
+                  .row
+                    .col
+                      +space
+                  .row
+                    .text-large.text-center
+                      span.strong#rea_experiment_title
+                .col-lg-2.col-md-3.col-sm-6.col-xs-6
+                  .row
+                    .text-msu Experimenter in Charge
+                  .row
+                    .text-large.strong
+                      span.strong#rea_experimenter_in_charge
+                      +space
+              .row
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu EBIT ReA
+                  .row
+                    .text-large.strong
+                      sup#rea_mass
+                      span#rea_element
+                      sup
+                        span#rea_charge
+                      != ' '
+                      span#rea_energy
+                      != ' '
+                      | MeV/u
+                .col-lg-2.col-lg-offset-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu RF Frequency
+                  .row
+                    .text-large.strong
+                      #rea_rf 80.500
+                        != ' '
+                        | MHz
+                .col-lg-2.col-lg-offset-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu Vault
+                  .row
+                    .text-large.strong
+                      span.strong#rea_vault
+                      +space
+                .col-lg-2.col-md-3.col-sm-4.col-xs-6
+                  .row
+                    .text-msu Status
+                  .row
+                    .text-large.strong
+                      span.strong#rea_status
+                      +space
+              .row
+                +progress('rea_progress')
+              .row
+                +time-axis
+          //- Operators
+          li.list-group-item
+            .well
+              .row
                 .inline
-                  img#charge_image(alt='Operator in charge', height='144px', data-src='holder.js/108x144/text:Operator in charge')
+                  .inline
+                    img#charge_image(alt='Operator in charge', height='200px', data-src='holder.js/150x200/text:Operator in charge')
+                  .inline
+                    .text-msu Operator
+                    .text-msu in charge
+                    .text-large
+                      .strong#charge_first
+                      .strong#charge_last
                 .inline
-                  .text-msu Operator
-                  .text-msu in charge
-                  .text-large
-                    .strong#charge_first
-                    .strong#charge_last
-              .inline
+                  .inline
+                    img#shift_image(alt='Operator on shift', height='200px', data-src='holder.js/150x200/text:Operator on shift')
+                  .inline
+                    .text-msu Operator
+                    .text-msu on shift
+                    .text-large
+                      .strong#shift_first
+                      .strong#shift_last
                 .inline
-                  img#shift_image(alt='Operator on shift', height='144px', data-src='holder.js/108x144/text:Operator on shift')
+                  .inline
+                    img#beam_image(alt='Beam Physicist on call', height='200px', data-src='holder.js/150x200/text:Beam Physicist on call')
+                  .inline
+                    .text-msu Beam Physicist
+                    //- .text-msu Physicist
+                    .text-msu on call
+                    .text-large
+                      .strong#beam_first
+                      .strong#beam_last
                 .inline
-                  .text-msu Operator
-                  .text-msu on shift
-                  .text-large
-                    .strong#shift_first
-                    .strong#shift_last
-              .inline
-                .inline
-                  img#beam_image(alt='Beam Physicist on call', height='144px', data-src='holder.js/108x144/text:Beam Physicist on call')
-                .inline
-                  .text-msu Beam
-                  .text-msu Physicist
-                  .text-msu on call
-                  .text-large
-                    .strong#beam_first
-                    .strong#beam_last
-              .inline
-                .inline
-                  img#co_image(alt='Beam Coordinator', height='144px', data-src='holder.js/108x144/text:Beam Coordinator')
-                .inline
-                  .text-msu Beam
-                  .text-msu Coordinator
-                  .text-large
-                    .strong#co_first
-                      .strong#co_last
-        //- Status
-        li.list-group-item
-          .well.lastwell
-            .row
-              .col-lg-2.col-md-4.col-sm-6.col-xs-6
-                .text-large.text-center
-                  .strong CCF Attenuator:
-                    div#ccf_att
-              .col-lg-3.col-md-4.col-sm-6.col-xs-6.text-large
-                .row.text-center
-                  .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                    strong Vault Secure Status
-                .row
-                  .col-lg-6.col-md-6.col-sm-6.col-xs-6
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#k5
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong K500
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#k12
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong K1200
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#a19
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong A1900
-                  .col-lg-6.col-md-6.col-sm-6.col-xs-6
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#s1
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong S1
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#s3
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong S3
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#n3
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong N3
-                    .row
-                      .col-lg-3.col-md-3.col-sm-3.col-xs-3
-                        i.fa.fa-circle#n4
-                      .col-lg-9.col-md-9.col-sm-9.col-xs-9
-                        strong N4
-              .col-lg-7.col-md-12.col-sm-12.col-xs-12
-                #beam-plot
+                  .inline
+                    img#co_image(alt='Beam Coordinator', height='200px', data-src='holder.js/150x200/text:Beam Coordinator')
+                  .inline
+                    .text-msu Beam
+                    .text-msu Coordinator
+                    .text-large
+                      .strong#co_first
+                        .strong#co_last
+          //- Status
+          li.list-group-item.last-group-item
+            .well
+              .row
+                .col-lg-2.col-md-4.col-sm-6.col-xs-6
+                  .text-large.text-center
+                    .strong CCF Attenuator:
+                      div#ccf_att
+                .col-lg-3.col-md-4.col-sm-6.col-xs-6.text-large
+                  .row.text-center
+                    .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                      strong Vault Secure Status
+                  .row
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#k5
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong K500
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#k12
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong K1200
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#a19
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong A1900
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#s1
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong S1
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#s3
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong S3
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#n3
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong N3
+                      .row
+                        .col-lg-3.col-md-3.col-sm-3.col-xs-3
+                          i.fa.fa-circle#n4
+                        .col-lg-9.col-md-9.col-sm-9.col-xs-9
+                          strong N4
+                .col-lg-7.col-md-12.col-sm-12.col-xs-12
+                  #beam-plot
 
 
 block js
