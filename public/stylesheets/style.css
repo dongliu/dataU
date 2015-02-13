@@ -4,7 +4,7 @@ html {
 
 body {
   height: 100%;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .vcenter {
@@ -60,13 +60,13 @@ body {
 }
 .text-msu {
   color: #18453B;
-  font-size: 110%;
+  font-size: 120%;
 }
 .text-strong {
   font-weight: bold;
 }
 .text-large {
-  font-size: 158%;
+  font-size: 150%;
 }
 td {
   vertical-align: top;
@@ -123,7 +123,7 @@ td {
 }
 
 /*override the styles*/
-.pabel {
+.panel {
   margin-bottom: 0px;
 }
 
@@ -132,11 +132,11 @@ td {
 }
 
 .panel-body {
-  padding: 0px 5px;
+  padding: 0px 0px;
 }
 
 .row {
-  margin: 0px -10px;
+  margin: 0px 0px;
 }
 
 .list-group {
@@ -149,7 +149,7 @@ td {
 }
 
 .well {
-  margin-bottom: 0px;
+  margin: 5px 5px 0px 5px;
   padding: 10px;
 }
 
