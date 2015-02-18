@@ -4,7 +4,7 @@ html {
 
 body {
   height: 100%;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .vcenter {
@@ -22,22 +22,22 @@ body {
 /*msu style*/
 
 .panel-msu {
-  border-color: #18453B;
+  border-color: #00723f;
 }
 .panel-msu > .panel-heading {
   color: #fff;
-  background-color: #18453B;
-  border-color: #18453B;
+  background-color: #00723f;
+  border-color: #00723f;
 }
 .panel-msu > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #18453B;
+  border-top-color: #00723f;
 }
 .panel-msu > .panel-heading .badge {
-  color: #18453B;
+  color: #00723f;
   background-color: #fff;
 }
 .panel-msu > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #18453B;
+  border-bottom-color: #00723f;
 }
 .time-axis {
   display: block;
@@ -59,11 +59,17 @@ body {
   margin-bottom: 0 !important;
 }
 .text-msu {
-  color: #18453B;
-  font-size: 120%;
+  color: #00723f;
+  font-size: 125%;
 }
 .text-strong {
   font-weight: bold;
+}
+.text-xlarge {
+  font-size: 200%;
+}
+.text-mlarge {
+  font-size: 125%;
 }
 .text-large {
   font-size: 150%;
@@ -112,6 +118,7 @@ td {
 
 .bar-wrap {
   position: relative;
+  margin:10px 0px;
 }
 
 .progress-marker {
@@ -128,7 +135,7 @@ td {
 }
 
 .panel-heading {
-  padding: 5px 10px;
+  padding: 0px 10px;
 }
 
 .panel-body {
