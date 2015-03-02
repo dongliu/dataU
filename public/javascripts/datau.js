@@ -158,23 +158,23 @@ var template = {
     e: '$[0].statusList.status[0].description',
     l: '#ccf_status'
   },
-  rea_experiment_number: {
-    e: '$[1].experiment.number',
-    t: padding,
-    l: '#rea_experiment_number'
-  },
-  rea_experiment_spokesperson: {
-    e: '$[1].experiment.spokesperson',
-    l: '#rea_experiment_spokesperson'
-  },
-  rea_experiment_title: {
-    e: '$[1].experiment.title',
-    l: '#rea_experiment_title'
-  },
-  rea_experimenter_in_charge: {
-    e: '$[1].shift.experimenterInCharge',
-    l: '#rea_experimenter_in_charge'
-  },
+  // rea_experiment_number: {
+  //   e: '$[1].experiment.number',
+  //   t: padding,
+  //   l: '#rea_experiment_number'
+  // },
+  // rea_experiment_spokesperson: {
+  //   e: '$[1].experiment.spokesperson',
+  //   l: '#rea_experiment_spokesperson'
+  // },
+  // rea_experiment_title: {
+  //   e: '$[1].experiment.title',
+  //   l: '#rea_experiment_title'
+  // },
+  // rea_experimenter_in_charge: {
+  //   e: '$[1].shift.experimenterInCharge',
+  //   l: '#rea_experimenter_in_charge'
+  // },
   // rea_mass: {
   //   e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
   //   l: '#rea_mass'
@@ -332,13 +332,13 @@ function updateFromHourlog() {
       jsonETL(json, template);
       datauGlobal.facilityStatus = [];
       datauGlobal.facilityStatus.push(json[0].statusList.status);
-      datauGlobal.facilityStatus.push(json[1].statusList.status);
+      // datauGlobal.facilityStatus.push(json[1].statusList.status);
     }
   }).fail(function (jqXHR, status, error) {
     //do something;
   }).always(function () {
     $('#ccf_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[0]))));
-    $('#rea_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[1]))));
+    // $('#rea_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[1]))));
   });
 }
 
