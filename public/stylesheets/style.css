@@ -108,6 +108,11 @@ td {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+#operators {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 .strong {
   font-weight: bold;
 }

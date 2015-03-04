@@ -5,7 +5,8 @@ var datauGlobal = {
   plot: null,
   plotdata: [],
   maxLength: 100 * 1000,
-  facilityStatus: []
+  facilityStatus: [],
+  operators: []
 };
 
 function padding(s) {
@@ -192,14 +193,14 @@ var template = {
   //   e: '$[0].beamList.beam[?(@.system==="rea")].energy',
   //   l: '#rea_energy'
   // },
-  rea_vault: {
-    e: '$[1].vault.name',
-    l: '#rea_vault'
-  },
-  rea_status: {
-    e: '$[1].statusList.status[0].description',
-    l: '#rea_status'
-  },
+  // rea_vault: {
+  //   e: '$[1].vault.name',
+  //   l: '#rea_vault'
+  // },
+  // rea_status: {
+  //   e: '$[1].statusList.status[0].description',
+  //   l: '#rea_status'
+  // },
   charge_first: {
     e: '$[0].shift.operatorInCharge.firstName',
     l: '#charge_first'
@@ -212,18 +213,18 @@ var template = {
     e: '$[0].shift.operatorInCharge.loginId',
     t: updateImage('#charge_image')
   },
-  shift_first: {
-    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.firstName',
-    l: '#shift_first'
-  },
-  shift_last: {
-    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.lastName',
-    l: '#shift_last'
-  },
-  shift_id: {
-    e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.loginId',
-    t: updateImage('#shift_image')
-  },
+  // shift_first: {
+  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.firstName',
+  //   l: '#shift_first'
+  // },
+  // shift_last: {
+  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.lastName',
+  //   l: '#shift_last'
+  // },
+  // shift_id: {
+  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.loginId',
+  //   t: updateImage('#shift_image')
+  // },
   beam_first: {
     e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Physicist")].employee.firstName',
     l: '#beam_first'
@@ -315,7 +316,39 @@ function collapse(a) {
   return a;
 }
 
+function operator (first, last, id) {
+  return '<div class="inline"><div class="inline"><img alt="Operator on shif" height="144px" data-src="holder.js/108x144/text:Operator on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">Operator</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
+}
 
+function addOperators(operators, first, last) {
+  var i;
+  $('#operators').empty();
+  for (i = 0; i < operators.length; i += 1) {
+    $('#operators').append(operator(operators[i], first[i], last[i]));
+  }
+}
+
+function updateOperators(json) {
+  var operators = [];
+  var first = [];
+  var last = [];
+  var charge, staff, i;
+  if (json[0] && json[0].shift.staffList.shiftStaff) {
+    charge = json[0].shift.operatorInCharge.loginId;
+    staff = json[0].shift.staffList.shiftStaff;
+    for (i = 0; i < staff.length; i += 1) {
+      if (staff[i].role.name === "Operator" && staff[i].employee.loginId !== charge) {
+        operators.push(staff[i].employee.loginId);
+        first.push(staff[i].employee.firstName);
+        last.push(staff[i].employee.lastName);
+      }
+    }
+    if (operators.length && operators.toString() != datauGlobal.operators.toString()) {
+      datauGlobal.operators = operators;
+      addOperators(operators, first, last);
+    }
+  }
+}
 
 function updateClock() {
   $('#day').text(datauGlobal.now.format('dddd, Do MMMM YYYY'));
@@ -330,6 +363,7 @@ function updateFromHourlog() {
   }).done(function (json, textStatus, jqXHR) {
     if (jqXHR.status === 200) {
       jsonETL(json, template);
+      updateOperators(json);
       datauGlobal.facilityStatus = [];
       datauGlobal.facilityStatus.push(json[0].statusList.status);
       // datauGlobal.facilityStatus.push(json[1].statusList.status);
