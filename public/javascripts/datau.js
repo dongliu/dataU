@@ -304,7 +304,7 @@ function collapse(a) {
   return a;
 }
 
-function operator (first, last, id) {
+function operator (id, first, last) {
   return '<div class="inline"><div class="inline"><img alt="Operator on shif" height="144px" data-src="holder.js/108x144/text:Operator on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">Operator</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
 }
 
