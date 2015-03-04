@@ -28,7 +28,7 @@ function updateImage(img) {
   return function (id) {
     if (id !== old) {
       old = id;
-      $(img).attr('src', '/users/' + old + '/photo');
+      $(img).attr('src', './users/' + old + '/photo');
     }
     return;
   };
@@ -324,7 +324,7 @@ function updateClock() {
 
 function updateFromHourlog() {
   $.ajax({
-    url: '/facilities/summary',
+    url: './facilities/summary',
     dataType: 'json',
     ifModified: true
   }).done(function (json, textStatus, jqXHR) {
@@ -383,7 +383,7 @@ function updateLEDs(json) {
 
 function groupUpdate() {
   $.ajax({
-    url: '/pvupdates/json',
+    url: './pvupdates/json',
     dataType: 'json',
     ifModified: true
   }).done(function (json, textStatus, jqXHR) {
@@ -400,7 +400,7 @@ function groupUpdate() {
 
 function initPlot() {
   $.ajax({
-    url: '/pvs/Z013L-C/json',
+    url: './pvs/Z013L-C/json',
     data: {
       from: moment.unix(datauGlobal.now.unix() - 12 * 3600).toISOString()
     },
@@ -427,7 +427,7 @@ function updatePlot() {
     initPlot();
   } else {
     $.ajax({
-      url: '/plotupdates/json',
+      url: './plotupdates/json',
       dataType: 'json',
       ifModified: true
     }).done(function (json, textStatus, jqXHR) {
