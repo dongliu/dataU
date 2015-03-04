@@ -35,9 +35,6 @@ block content
                   != ' - '
                   span#ccf_experiment_spokesperson
             .col-lg-6.col-md-6.col-sm-6
-              //- .row
-                .col
-                  +space
               .row
                 .text-large.text-center
                   span#ccf_experiment_title
@@ -176,7 +173,7 @@ block content
             +progress('rea_progress')
           .row.text-mlarge
             +time-axis
-        //- Operators
+      //- Operators
       .row
         .well(style='height:176px')
           .row
@@ -189,22 +186,12 @@ block content
                 .text-large
                   #charge_first
                   #charge_last
-            //- .inline
-            //-   .inline
-            //-     img#shift_image(alt='Operator on shift', height='144px', data-src='holder.js/108x144/text:Operator on shift')
-            //-   .inline
-            //-     .text-msu Operator
-            //-     .text-msu on shift
-            //-     .text-large
-            //-       #shift_first
-            //-       #shift_last
             .inline#operators
             .inline
               .inline
                 img#beam_image(alt='Beam Physicist on call', height='144px', data-src='holder.js/108x144/text:Beam Physicist on call')
               .inline
                 .text-msu Beam Physicist
-                //- .text-msu Physicist
                 .text-msu on call
                 .text-large
                   #beam_first
@@ -218,7 +205,7 @@ block content
                 .text-large
                   #co_first
                   #co_last
-        //- Status
+      //- Status
       .row
         .well.last-group-item(style='height:297px')
           .row

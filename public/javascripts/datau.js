@@ -213,18 +213,6 @@ var template = {
     e: '$[0].shift.operatorInCharge.loginId',
     t: updateImage('#charge_image')
   },
-  // shift_first: {
-  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.firstName',
-  //   l: '#shift_first'
-  // },
-  // shift_last: {
-  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.lastName',
-  //   l: '#shift_last'
-  // },
-  // shift_id: {
-  //   e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Operator")].employee.loginId',
-  //   t: updateImage('#shift_image')
-  // },
   beam_first: {
     e: '$[0].shift.staffList.shiftStaff[?(@.role.name==="Beam Physicist")].employee.firstName',
     l: '#beam_first'
