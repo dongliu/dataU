@@ -19,12 +19,12 @@ mixin time-axis
 
 block content
   .panel.panel-msu(style='width: 100%').text-strong
-    .panel-heading(style='height: 58px')
+    .panel-heading#heading
       span#day.text-xlarge loading date
       span#time.text-xlarge.pull-right loading time
-    .panel-body(style='height: 1019px')
+    .panel-body#body
       .row
-        .well(style='height:260px')
+        .well#ccf
           .row
             .col-lg-3.col-md-3.col-sm-6.col-xs-6
               .row
@@ -109,7 +109,7 @@ block content
           .row.text-mlarge
             +time-axis
       .row
-        .well(style='height:260px')
+        .well#rea
           .row
             .col-lg-3.col-md-3.col-sm-6.col-xs-6
               .row
@@ -175,7 +175,7 @@ block content
             +time-axis
       //- Operators
       .row
-        .well(style='height:176px')
+        .well#ops
           .row
             .inline
               .inline
@@ -207,7 +207,7 @@ block content
                   #co_last
       //- Status
       .row
-        .well.last-group-item(style='height:297px')
+        .well.last-group-item#last
           .row
             .col-lg-2.col-md-4.col-sm-6.col-xs-6
               .text-large.text-center

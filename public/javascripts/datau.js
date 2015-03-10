@@ -6,6 +6,7 @@ var datauGlobal = {
   plotdata: [],
   maxLength: 100 * 1000,
   facilityStatus: [],
+  heights: [58, 1019, 260, 260, 176, 297],
   operators: []
 };
 
@@ -487,7 +488,27 @@ function timedUpdate() {
   // update other information
 }
 
+function setHeight() {
+  if ($(window).width() >= 1900) {
+    $('#heading').css('height', datauGlobal.heights[0]);
+    $('#body').css('height', datauGlobal.heights[1]);
+    $('#ccf').css('height', datauGlobal.heights[2]);
+    $('#rea').css('height', datauGlobal.heights[3]);
+    $('#ops').css('height', datauGlobal.heights[4]);
+    $('#last').css('height', datauGlobal.heights[5]);
+  } else {
+    $('#heading').css('height', 'auto');
+    $('#body').css('height', 'auto');
+    $('#ccf').css('height', 'auto');
+    $('#rea').css('height', 'auto');
+    $('#ops').css('height', 'auto');
+    $('#last').css('height', 'auto');
+  }
+}
+
 $(function () {
+  setHeight();
+  $(window).resize(setHeight);
   datauGlobal.now = moment();
   updateClock();
   updateFromHourlog();
