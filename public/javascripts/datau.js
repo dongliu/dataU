@@ -269,7 +269,8 @@ function progressPercentage(start, end) {
 }
 
 function progressBar(a) {
-  var i, out = '', p;
+  var i, out = '',
+    p;
   for (i = 0; i < a.length; i += 1) {
     p = progressPercentage(a[i][0], (i === 0 ? datauGlobal.now.unix() : a[i - 1][0]));
     out += '<div style="width: ' + p + '%" class="progress-bar progress-bar-' + a[i][1].toLowerCase() + '">' + (p > 2 ? a[i][1] : '') + '</div>';
@@ -305,7 +306,7 @@ function collapse(a) {
   return a;
 }
 
-function operator (id, first, last) {
+function operator(id, first, last) {
   return '<div class="inline"><div class="inline"><img alt="Operator on shif" height="144px" data-src="holder.js/108x144/text:Operator on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">Operator</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
 }
 
@@ -332,7 +333,7 @@ function updateOperators(json) {
         last.push(staff[i].employee.lastName);
       }
     }
-    if (operators.length && operators.toString() != datauGlobal.operators.toString()) {
+    if (operators.length && operators.toString() !== datauGlobal.operators.toString()) {
       datauGlobal.operators = operators;
       addOperators(operators, first, last);
     }
@@ -431,7 +432,9 @@ function initPlot() {
   }).done(function (json) {
     var i, a = json[0].data;
     for (i = 0; i < a.length; i += 1) {
-      datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+      if (a[i].val >= 0) {
+        datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+      }
     }
     datauGlobal.plot = new Dygraph('beam-plot', datauGlobal.plotdata, {
       labels: ['Date', 'Primary Beam Intensity'],
@@ -459,7 +462,7 @@ function updatePlot() {
           toshift = 0,
           last = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0];
         for (i = 0; i < a.length; i += 1) {
-          if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
+          if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last) && a[i].val >= 0) {
             datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
           }
         }
