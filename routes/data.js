@@ -74,13 +74,17 @@ function fetch_from_ad(id) {
       } else {
         res_list.forEach(function (res) {
           res.set('Content-Type', 'image/jpeg');
+          res.set('Cache-Control', 'public, max-age=' + options.maxAge);
           res.send(result[0].thumbnailPhoto);
         });
-        fs.writeFile(options.root + id + '.jpg', result[0].thumbnailPhoto, function (err) {
-          if (err) {
-            console.error(err);
-          }
-        });
+        // there is a chance that the file was created but not saw by the current leading request
+        if (!fs.existsSync(options.root + id + '.jpg')) {
+          fs.writeFile(options.root + id + '.jpg', result[0].thumbnailPhoto, function (err) {
+            if (err) {
+              console.error(err);
+            }
+          });
+        }
       }
     }
   });
@@ -211,14 +215,11 @@ module.exports = function (app) {
   });
 
   app.get('/users/:id/photo', function (req, res) {
-    // if pending, register the request
-    if (pending_photo[req.params.id]) {
-      pending_photo[req.params.id].push(res);
-    }
-    // if not pending and in file, then get the file
-    if (pending_photo[req.params.id] === undefined) {
-      if (fs.existsSync(options.root + req.params.id + '.jpg')) {
-        res.sendFile(req.params.id + '.jpg', options);
+    if (fs.existsSync(options.root + req.params.id + '.jpg')) {
+      res.sendFile(req.params.id + '.jpg', options);
+    } else {
+      if (pending_photo[req.params.id]) {
+        pending_photo[req.params.id].push(res);
       } else {
         pending_photo[req.params.id] = [res];
         fetch_from_ad(req.params.id);
