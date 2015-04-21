@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/dependencies', express.static(path.join(__dirname, 'bower_components')));
+app.use('/dependencies', express.static(path.join(__dirname, 'bower_components'), {maxAge: 240 * 60 * 60 * 1000}));
 
 app.use('/', routes);
 app.use('/users', users);
