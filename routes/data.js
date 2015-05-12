@@ -201,7 +201,10 @@ module.exports = function (app) {
         console.error(err);
         return res.status(503).send('cannot retrieve pv values from ' + dataconfig.pvdataurl);
       }
-      res.status(response.statusCode).type(response.headers['content-type']);
+      res.status(response.statusCode);
+      if (response.statusCode === 200) {
+        res.type(format);
+      }
       res.send(resBody);
     });
   });
