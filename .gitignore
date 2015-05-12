@@ -1,6 +1,9 @@
 # Logs
 logs/*.log*
 
+# test
+test
+
 # Runtime data
 pids
 *.pid
