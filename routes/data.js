@@ -203,10 +203,14 @@ module.exports = function (app) {
         to: req.query.to
       },
       timeout: 30 * 1000
-    }).on('error', function (err) {
-      console.error(err);
-      return res.status(503).send('cannot retrieve device list from ' + dataconfig.pvdataurl);
-    }).pipe(res);
+    }, function (err, response, resBody) {
+      if (err) {
+        console.error(err);
+        return res.status(503).send('cannot retrieve pv values from ' + dataconfig.pvdataurl);
+      }
+      res.status(response.statusCode).type(response.headers['content-type']);
+      res.send(resBody);
+    });
   });
 
   app.get('/facilities/summary', function (req, res) {
