@@ -53,23 +53,16 @@ function fetch_from_ad(id) {
     if (err) {
       console.error(err);
       res_list.forEach(function (res) {
-        res.status(500).json({
-          error: 'ldap error'
-        });
+        res.status(500).send('ldap error');
       });
     } else {
       if (result.length === 0) {
         res_list.forEach(function (res) {
-          res.status(500).json({
-            error: id + ' is not found'
-          });
+          res.status(400).send(id + ' is not found');
         });
-      }
-      if (result.length > 1) {
+      } else if (result.length > 1) {
         res_list.forEach(function (res) {
-          res.status(500).json({
-            error: id + ' is not unique!'
-          });
+          res.status(400).sed(id + ' is not unique!');
         });
       } else {
         res_list.forEach(function (res) {
