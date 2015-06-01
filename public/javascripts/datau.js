@@ -2,6 +2,7 @@
 
 var datauGlobal = {
   now: null,
+  release: null,
   plot: null,
   plotdata: [],
   maxLength: 100 * 1000,
@@ -413,6 +414,28 @@ function updateLEDs(json) {
 }
 
 
+function eventUpdate() {
+  $.ajax({
+    url: './events/json',
+    dataType: 'json',
+    ifModified: true
+  }).done(function (json, textStatus, jqXHR) {
+    if (jqXHR.status === 200) {
+      if (datauGlobal.release === null) {
+        if (json.release) {
+          // first load
+          datauGlobal.release = json.release;
+        }
+      } else if (json.release !== datauGlobal.release) { // not first time, and need a refresh
+        window.location.reload(true);
+      }
+    }
+  }).fail(function (jqXHR, status, error) {
+    console.log(error);
+    //do something;
+  });
+}
+
 function groupUpdate() {
   $.ajax({
     url: './pvupdates/json',
@@ -440,8 +463,10 @@ function initPlot() {
   }).done(function (json) {
     var i, a = json[0].data;
     for (i = 0; i < a.length; i += 1) {
-      if (a[i].val >= 0) {
+      if (a[i].val > 0) {
         datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+      } else {
+        datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), 0]);
       }
     }
     datauGlobal.plot = new Dygraph('beam-plot', datauGlobal.plotdata, {
@@ -449,6 +474,7 @@ function initPlot() {
       // ylabel: '',
       legend: 'always',
       colors: ['#0033CC'],
+      stepPlot: true,
       height: 250
     });
   }).fail(function (jqXHR, status, error) {
@@ -469,10 +495,25 @@ function updatePlot() {
         var i, a = json[0].data,
           toshift = 0,
           last = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0];
+        // add new data
         for (i = 0; i < a.length; i += 1) {
-          if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last) && a[i].val >= 0) {
-            datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+          if (a[i].val > 0) {
+            if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
+              datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
+            }
+          } else {
+            if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
+              datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), 0]);
+            }
           }
+        }
+        var endValue = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][1];
+        if (datauGlobal.plotdata.length > 1 && endValue === datauGlobal.plotdata[datauGlobal.plotdata.length - 2][1]) {
+          // replace the last spot to current
+          datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0] = datauGlobal.now.toDate();
+        } else {
+          // add a new spot
+          datauGlobal.plotdata.push([datauGlobal.now.toDate(), endValue]);
         }
         datauGlobal.plot.updateOptions({
           file: datauGlobal.plotdata,
@@ -525,7 +566,14 @@ $(function () {
   updateFromHourlog();
   updatePlot();
   groupUpdate();
+
+  // fetch updates every 15 seconds
   setInterval(function () {
     timedUpdate();
   }, 15 * 1000);
+
+  // check new release every 30 minutes
+  setInterval(function () {
+    eventUpdate();
+  }, 30 * 60 * 1000);
 });
