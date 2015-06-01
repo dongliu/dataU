@@ -1,24 +1,20 @@
+var express = require('express');
+var router = express.Router();
 var ad = require('../config/ad.json');
 var ldapClient = require('../lib/ldap-client');
 var request = require('request');
 var fs = require('fs');
 var moment = require('moment');
-
 var debug = require('debug')('dataU');
-
 var dataconfig = require('../config/data.json');
-var pending_photo;
+var pending_photo = {};
 var options = {
   root: __dirname + '/../public/images/staff/',
   maxAge: 30 * 24 * 3600 * 1000
 };
-
 var update = {};
-
 var plotUpdate = [];
-
 var summary = {};
-
 var pvs = [{
   name: 'K5MN_LVL_LCKD'
 }, {
@@ -177,62 +173,59 @@ function updatePVs(pvs) {
   }, 30 * 1000);
 }
 
-module.exports = function (app) {
-  // start to update PVs task
-  updatePVs(pvs);
+updatePVs(pvs);
 
-  pending_photo = app.get('pending_photo');
+router.get('/pvupdates/json', function (req, res) {
+  res.json(update);
+});
 
-  app.get('/pvupdates/json', function (req, res) {
-    res.json(update);
-  });
+router.get('/plotupdates/json', function (req, res) {
+  res.type('json');
+  res.send(plotUpdate);
+});
 
-  app.get('/plotupdates/json', function (req, res) {
-    res.type('json');
-    res.send(plotUpdate);
-  });
-
-  app.get('/pvs/:id/:format', function (req, res) {
-    if (req.params.id === undefined) {
-      return res.status(400).send('need pv name');
+router.get('/pvs/:id/:format', function (req, res) {
+  if (req.params.id === undefined) {
+    return res.status(400).send('need pv name');
+  }
+  var format = req.params.format || 'json';
+  request({
+    url: dataconfig.pvdataurl + '.' + format,
+    qs: {
+      pv: req.query.func ? req.query.func + '(' + req.params.id + ')' : req.params.id,
+      from: req.query.from,
+      to: req.query.to
+    },
+    timeout: 30 * 1000
+  }, function (err, response, resBody) {
+    if (err) {
+      console.error(err);
+      return res.status(503).send('cannot retrieve pv values from ' + dataconfig.pvdataurl);
     }
-    var format = req.params.format || 'json';
-    request({
-      url: dataconfig.pvdataurl + '.' + format,
-      qs: {
-        pv: req.query.func ? req.query.func + '(' + req.params.id + ')' : req.params.id,
-        from: req.query.from,
-        to: req.query.to
-      },
-      timeout: 30 * 1000
-    }, function (err, response, resBody) {
-      if (err) {
-        console.error(err);
-        return res.status(503).send('cannot retrieve pv values from ' + dataconfig.pvdataurl);
-      }
-      res.status(response.statusCode);
-      if (response.statusCode === 200) {
-        res.type(format);
-      }
-      res.send(resBody);
-    });
+    res.status(response.statusCode);
+    if (response.statusCode === 200) {
+      res.type(format);
+    }
+    res.send(resBody);
   });
+});
 
-  app.get('/facilities/summary', function (req, res) {
-    res.type('json');
-    res.send(summary);
-  });
+router.get('/facilities/summary', function (req, res) {
+  res.type('json');
+  res.send(summary);
+});
 
-  app.get('/users/:id/photo', function (req, res) {
-    if (fs.existsSync(options.root + req.params.id + '.jpg')) {
-      res.sendFile(req.params.id + '.jpg', options);
+router.get('/users/:id/photo', function (req, res) {
+  if (fs.existsSync(options.root + req.params.id + '.jpg')) {
+    res.sendFile(req.params.id + '.jpg', options);
+  } else {
+    if (pending_photo[req.params.id]) {
+      pending_photo[req.params.id].push(res);
     } else {
-      if (pending_photo[req.params.id]) {
-        pending_photo[req.params.id].push(res);
-      } else {
-        pending_photo[req.params.id] = [res];
-        fetch_from_ad(req.params.id);
-      }
+      pending_photo[req.params.id] = [res];
+      fetch_from_ad(req.params.id);
     }
-  });
-};
+  }
+});
+
+module.exports = router;
