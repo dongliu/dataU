@@ -160,48 +160,48 @@ var template = {
     e: '$[0].statusList.status[0].description',
     l: '#ccf_status'
   },
-  // rea_experiment_number: {
-  //   e: '$[1].experiment.number',
-  //   t: padding,
-  //   l: '#rea_experiment_number'
-  // },
-  // rea_experiment_spokesperson: {
-  //   e: '$[1].experiment.spokesperson',
-  //   l: '#rea_experiment_spokesperson'
-  // },
-  // rea_experiment_title: {
-  //   e: '$[1].experiment.title',
-  //   l: '#rea_experiment_title'
-  // },
-  // rea_experimenter_in_charge: {
-  //   e: '$[1].shift.experimenterInCharge',
-  //   l: '#rea_experimenter_in_charge'
-  // },
-  // rea_mass: {
-  //   e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
-  //   l: '#rea_mass'
-  // },
-  // rea_element: {
-  //   e: '$[0].beamList.beam[?(@.system==="rea")].symbol',
-  //   l: '#rea_element'
-  // },
-  // rea_charge: {
-  //   e: '$[0].beamList.beam[?(@.system==="rea")].elementCharge',
-  //   t: charge,
-  //   l: '#rea_charge'
-  // },
-  // rea_energy: {
-  //   e: '$[0].beamList.beam[?(@.system==="rea")].energy',
-  //   l: '#rea_energy'
-  // },
-  // rea_vault: {
-  //   e: '$[1].vault.name',
-  //   l: '#rea_vault'
-  // },
-  // rea_status: {
-  //   e: '$[1].statusList.status[0].description',
-  //   l: '#rea_status'
-  // },
+  rea_experiment_number: {
+    e: '$[1].experiment.number',
+    t: padding,
+    l: '#rea_experiment_number'
+  },
+  rea_experiment_spokesperson: {
+    e: '$[1].experiment.spokesperson',
+    l: '#rea_experiment_spokesperson'
+  },
+  rea_experiment_title: {
+    e: '$[1].experiment.title',
+    l: '#rea_experiment_title'
+  },
+  rea_experimenter_in_charge: {
+    e: '$[1].shift.experimenterInCharge',
+    l: '#rea_experimenter_in_charge'
+  },
+  rea_mass: {
+    e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
+    l: '#rea_mass'
+  },
+  rea_element: {
+    e: '$[0].beamList.beam[?(@.system==="rea")].symbol',
+    l: '#rea_element'
+  },
+  rea_charge: {
+    e: '$[0].beamList.beam[?(@.system==="rea")].elementCharge',
+    t: charge,
+    l: '#rea_charge'
+  },
+  rea_energy: {
+    e: '$[0].beamList.beam[?(@.system==="rea")].energy',
+    l: '#rea_energy'
+  },
+  rea_vault: {
+    e: '$[1].vault.name',
+    l: '#rea_vault'
+  },
+  rea_status: {
+    e: '$[1].statusList.status[0].description',
+    l: '#rea_status'
+  },
   charge_first: {
     e: '$[0].shift.operatorInCharge.firstName',
     l: '#charge_first'
@@ -355,14 +355,22 @@ function updateFromHourlog() {
       jsonETL(json, template);
       updateOperators(json);
       datauGlobal.facilityStatus = [];
-      datauGlobal.facilityStatus.push(json[0].statusList.status);
-      // datauGlobal.facilityStatus.push(json[1].statusList.status);
+      if (json[0] && json[0].statusList && json[0].statusList.status) {
+        datauGlobal.facilityStatus.push(json[0].statusList.status);
+      }
+      if (json[1] && json[1].statusList && json[1].statusList.status) {
+        datauGlobal.facilityStatus.push(json[1].statusList.status);
+      }
     }
   }).fail(function (jqXHR, status, error) {
     //do something;
   }).always(function () {
-    $('#ccf_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[0]))));
-    // $('#rea_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[1]))));
+    if (datauGlobal.facilityStatus[0]) {
+      $('#ccf_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[0]))));
+    }
+    if (datauGlobal.facilityStatus[1]) {
+      $('#rea_progress').html(progressBar(collapse(progress24(datauGlobal.facilityStatus[1]))));
+    }
   });
 }
 
