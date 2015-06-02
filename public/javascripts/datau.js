@@ -463,10 +463,10 @@ function initPlot() {
   }).done(function (json) {
     var i, a = json[0].data;
     for (i = 0; i < a.length; i += 1) {
-      if (a[i].val > 0) {
+      if (a[i].val >= 0) {
         datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
       } else {
-        datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), 0]);
+        datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), null]);
       }
     }
     datauGlobal.plot = new Dygraph('beam-plot', datauGlobal.plotdata, {
@@ -497,13 +497,13 @@ function updatePlot() {
           last = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0];
         // add new data
         for (i = 0; i < a.length; i += 1) {
-          if (a[i].val > 0) {
+          if (a[i].val >= 0) {
             if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
               datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), a[i].val]);
             }
           } else {
             if (moment(a[i].secs * 1000 + a[i].nanos / 1000000).isAfter(last)) {
-              datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), 0]);
+              datauGlobal.plotdata.push([new Date(a[i].secs * 1000 + a[i].nanos / 1000000), null]);
             }
           }
         }
