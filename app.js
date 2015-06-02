@@ -50,7 +50,7 @@ app.use('/dependencies', express.static(path.join(__dirname, 'bower_components')
 app.use('/', routes);
 app.use('/', data);
 
-app.use('/events', function (req, res) {
+app.get('/events', function (req, res) {
   res.json({
     release: release
   });
