@@ -426,7 +426,8 @@ function eventUpdate() {
           // first load
           datauGlobal.release = json.release;
         }
-      } else if (json.release !== datauGlobal.release) { // not first time, and need a refresh
+      } else if (json.release !== datauGlobal.release) {
+        // not first time, and need a refresh
         window.location.reload(true);
       }
     }
@@ -509,7 +510,7 @@ function updatePlot() {
         }
         var endValue = datauGlobal.plotdata[datauGlobal.plotdata.length - 1][1];
         if (datauGlobal.plotdata.length > 1 && endValue === datauGlobal.plotdata[datauGlobal.plotdata.length - 2][1]) {
-          // replace the last spot to current
+          // replace the last spot's time to current time
           datauGlobal.plotdata[datauGlobal.plotdata.length - 1][0] = datauGlobal.now.toDate();
         } else {
           // add a new spot
