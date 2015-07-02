@@ -179,20 +179,20 @@ var template = {
     l: '#rea_experimenter_in_charge'
   },
   rea_mass: {
-    e: '$[1].beamList.beam[?(@.system==="rea")].massNumber',
+    e: '$[1].beamList.beam[?(@.system==="ReA")].massNumber',
     l: '#rea_mass'
   },
   rea_element: {
-    e: '$[0].beamList.beam[?(@.system==="rea")].symbol',
+    e: '$[1].beamList.beam[?(@.system==="ReA")].symbol',
     l: '#rea_element'
   },
   rea_charge: {
-    e: '$[0].beamList.beam[?(@.system==="rea")].elementCharge',
+    e: '$[1].beamList.beam[?(@.system==="ReA")].elementCharge',
     t: charge,
     l: '#rea_charge'
   },
   rea_energy: {
-    e: '$[0].beamList.beam[?(@.system==="rea")].energy',
+    e: '$[1].beamList.beam[?(@.system==="ReA")].energy',
     l: '#rea_energy'
   },
   rea_vault: {
