@@ -416,7 +416,7 @@ function updateLEDs(json) {
 
 function eventUpdate() {
   $.ajax({
-    url: './events/json',
+    url: './events',
     dataType: 'json',
     ifModified: true
   }).done(function (json, textStatus, jqXHR) {
