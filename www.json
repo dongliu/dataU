@@ -6,9 +6,12 @@
       "log_date_format": "YYYY-MM-DD HH:mm:ss Z",
       "log_file": "logs/datau.stdout.log",
       "error_file": "logs/datau.stderr.log",
-      "ignoreWatch": [
-        "[\\/\\\\]\\./",
-        "node_modules"
+      "ignore_watch": [
+        "node_modules",
+        "bower_components",
+        "logs",
+        "test",
+        "public"
       ],
       "watch": false,
       "env": {
