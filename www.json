@@ -10,7 +10,7 @@
         "[\\/\\\\]\\./",
         "node_modules"
       ],
-      "watch": true,
+      "watch": false,
       "env": {
         "NODE_ENV": "production"
       }
