@@ -85,7 +85,7 @@ function fetch_from_ad(id) {
     } else {
       cleanList(id, function (res) {
         res.status(400).send(id + ' photo is not found');
-      })
+      });
     }
   });
 }
