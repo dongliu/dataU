@@ -36,6 +36,12 @@ var pvs = [{
   name: 'K8FREQ'
 }];
 
+function cleanList(id, f) {
+  var res_list = pending_photo[id];
+  delete pending_photo[id];
+  res_list.forEach(f);
+}
+
 function fetch_from_ad(id) {
   var searchFilter = ad.searchFilter.replace('_id', id);
   var opts = {
@@ -44,45 +50,37 @@ function fetch_from_ad(id) {
     scope: 'sub'
   };
   ldapClient.search(ad.searchBase, opts, true, function (err, result) {
-    var resList = pending_photo[id];
-    // It does not matter delete now or after processing all the responds
-    delete pending_photo[id];
     if (err) {
       console.error(err);
-      resList.forEach(function (res) {
+      cleanList(id, function (res) {
         res.status(500).send('ldap error');
       });
-    } else {
-      if (result.length === 0) {
-        resList.forEach(function (res) {
-          res.status(400).send(id + ' is not found');
-        });
-      } else if (result.length > 1) {
-        resList.forEach(function (res) {
-          res.status(400).sed(id + ' is not unique!');
-        });
-      } else {
-        if (result[0].thumbnailPhoto && result[0].thumbnailPhoto.length) {
-          // There is a chance that the file was created but not saw by the current leading request.
-          // Check to avoid writing twice.
-          if (!fs.existsSync(options.root + id + '.jpg')) {
-            fs.writeFile(options.root + id + '.jpg', result[0].thumbnailPhoto, function (err) {
-              if (err) {
-                console.error(err);
-              }
-            });
+    } else if (result.length === 0) {
+      cleanList(id, function (res) {
+        res.status(400).send(id + ' is not found');
+      });
+    } else if (result.length > 1) {
+      cleanList(id, function (res) {
+        res.status(400).send(id + ' is not unique!');
+      });
+    } else if (result[0].thumbnailPhoto && result[0].thumbnailPhoto.length) {
+      if (!fs.existsSync(options.root + id + '.jpg')) {
+        fs.writeFile(options.root + id + '.jpg', result[0].thumbnailPhoto, function (err) {
+          if (err) {
+            console.error(err);
           }
-          resList.forEach(function (res) {
+          cleanList(id, function (res) {
             res.set('Content-Type', 'image/jpeg');
             res.set('Cache-Control', 'public, max-age=' + options.maxAge);
             res.send(result[0].thumbnailPhoto);
           });
-        } else {
-          // photo empty
-          resList.forEach(function (res) {
-            res.status(404).send(id + ' photo is not found.');
-          });
-        }
+        });
+      } else {
+        cleanList(id, function (res) {
+          res.set('Content-Type', 'image/jpeg');
+          res.set('Cache-Control', 'public, max-age=' + options.maxAge);
+          res.send(result[0].thumbnailPhoto);
+        });
       }
     }
   });
