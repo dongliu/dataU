@@ -82,6 +82,10 @@ function fetch_from_ad(id) {
           res.send(result[0].thumbnailPhoto);
         });
       }
+    } else {
+      cleanList(id, function (res) {
+        res.status(400).send(id + ' photo is not found');
+      })
     }
   });
 }
