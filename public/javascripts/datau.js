@@ -418,6 +418,7 @@ function eventUpdate() {
   $.ajax({
     url: './events',
     dataType: 'json',
+    cache: false,
     ifModified: true
   }).done(function (json, textStatus, jqXHR) {
     if (jqXHR.status === 200) {
