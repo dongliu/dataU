@@ -308,7 +308,7 @@ function collapse(a) {
   return a;
 }
 
-function staff(type, id, first, last) {
+function staffDiv(type, id, first, last) {
   return '<div class="inline"><div class="inline"><img alt="' + type + ' on shift" height="144px" data-src="holder.js/108x144/text:' + type + ' on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">' + type + '</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
 }
 
@@ -316,7 +316,7 @@ function addOperators(operators, first, last) {
   var i;
   $('#operators').empty();
   for (i = 0; i < operators.length; i += 1) {
-    $('#operators').append(staff('Operator', operators[i], first[i], last[i]));
+    $('#operators').append(staffDiv('Operator', operators[i], first[i], last[i]));
   }
 }
 
@@ -324,7 +324,7 @@ function addSecurity(staff, first, last) {
   var i;
   $('#security').empty();
   for (i = 0; i < staff.length; i += 1) {
-    $('#security').append(staff('Security', staff[i], first[i], last[i]));
+    $('#security').append(staffDiv('Security', staff[i], first[i], last[i]));
   }
 }
 
