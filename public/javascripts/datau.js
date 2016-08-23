@@ -8,7 +8,8 @@ var datauGlobal = {
   maxLength: 100 * 1000,
   facilityStatus: [],
   heights: [58, 1019, 260, 260, 176, 297],
-  operators: []
+  operators: [],
+  security: []
 };
 
 function padding(s) {
@@ -307,15 +308,23 @@ function collapse(a) {
   return a;
 }
 
-function operator(id, first, last) {
-  return '<div class="inline"><div class="inline"><img alt="Operator on shif" height="144px" data-src="holder.js/108x144/text:Operator on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">Operator</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
+function staff(type, id, first, last) {
+  return '<div class="inline"><div class="inline"><img alt="' + type + ' on shift" height="144px" data-src="holder.js/108x144/text:' + type + ' on shift" src="./users/' + id + '/photo"></div><div class="inline"><div class="text-msu">' + type + '</div><div class="text-msu">on shift</div><div class="text-large"><div class="shift_first">' + first + '</div><div class="shift_last">' + last + '</div></div></div></div>';
 }
 
 function addOperators(operators, first, last) {
   var i;
   $('#operators').empty();
   for (i = 0; i < operators.length; i += 1) {
-    $('#operators').append(operator(operators[i], first[i], last[i]));
+    $('#operators').append(staff('Operator', operators[i], first[i], last[i]));
+  }
+}
+
+function addSecurity(staff, first, last) {
+  var i;
+  $('#security').empty();
+  for (i = 0; i < staff.length; i += 1) {
+    $('#security').append(staff('Security', staff[i], first[i], last[i]));
   }
 }
 
@@ -323,20 +332,33 @@ function updateOperators(json) {
   var operators = [];
   var first = [];
   var last = [];
+  var security = [];
+  var sFirst = [];
+  var sLast = [];
   var charge, staff, i;
   if (json[0] && json[0].shift.staffList.shiftStaff) {
     charge = json[0].shift.operatorInCharge.loginId;
     staff = json[0].shift.staffList.shiftStaff;
     for (i = 0; i < staff.length; i += 1) {
-      if (staff[i].role.name === "Operator" && staff[i].employee.loginId !== charge) {
-        operators.push(staff[i].employee.loginId);
-        first.push(staff[i].employee.firstName);
-        last.push(staff[i].employee.lastName);
+      if (staff[i].employee.loginId !== charge) {
+        if (staff[i].role.name === "Operator") {
+          operators.push(staff[i].employee.loginId);
+          first.push(staff[i].employee.firstName);
+          last.push(staff[i].employee.lastName);
+        } else if (staff[i].role.name === "Security") {
+          security.push(staff[i].employee.loginId);
+          sFirst.push(staff[i].employee.firstName);
+          sLast.push(staff[i].employee.lastName);
+        }
       }
     }
     if (operators.length && operators.toString() !== datauGlobal.operators.toString()) {
       datauGlobal.operators = operators;
       addOperators(operators, first, last);
+    }
+    if (security.length && security.toString() !== datauGlobal.security.toString()) {
+      datauGlobal.security = security;
+      addSecurity(security, sFirst, sLast);
     }
   }
 }
