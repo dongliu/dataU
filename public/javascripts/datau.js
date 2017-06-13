@@ -352,11 +352,11 @@ function updateOperators(json) {
         }
       }
     }
-    if (operators.length && operators.toString() !== datauGlobal.operators.toString()) {
+    if (operators.toString() !== datauGlobal.operators.toString()) {
       datauGlobal.operators = operators;
       addOperators(operators, first, last);
     }
-    if (security.length && security.toString() !== datauGlobal.security.toString()) {
+    if (security.toString() !== datauGlobal.security.toString()) {
       datauGlobal.security = security;
       addSecurity(security, sFirst, sLast);
     }
